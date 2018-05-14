@@ -17,16 +17,50 @@
     function createWorld() {
       setupCamera();
       setupScene();
+      setupLight();
       setupRenderer();
       playerGeometry = new THREE.SphereGeometry( 2, 32, 32 );
     }
 
       // loads all levels and textures
     function loadEverything() {
+      var texToLoad;
       return loadAllLevels(numberOfLevels-1).then(function (response) {
-        return new THREE.TextureLoader().load( "res/tree.png" );
+        return new THREE.TextureLoader().load("res/grass.jpg");
       }).then(function(response){
-        playerMaterial = new THREE.MeshBasicMaterial( { map: response } );
+        texturesMap["grass"] = response;
+        texToLoad = formArrayToLoadTextures("cobble", "jpg");
+        return loadTexturesFromArray(texToLoad, texToLoad.length-1);
+      }).then(function(response){
+        texturesMap[texToLoad[texToLoad.length-1]["name"]] = response;
+        texToLoad = formArrayToLoadTextures("stone", "jpg");
+        return loadTexturesFromArray(texToLoad, texToLoad.length-1);
+      });
+    }
+
+    function formArrayToLoadTextures(name, term) {
+      var toR = [];
+      var len = 4; for (i = 0; i < len; i++) toR.push({});
+      toR[0]["name"] = name + "_aoMap";
+      toR[0]["url"] = "res/" + name + "/" + name + "_aoMap." + term;
+      toR[1]["name"] = name + "_displacementMap";
+      toR[1]["url"] = "res/" + name + "/" + name + "_displacementMap." + term
+      toR[2]["name"] = name + "_map";
+      toR[2]["url"] = "res/" + name + "/" + name + "_map." + term;
+      toR[3]["name"] = name + "_normalMap";
+      toR[3]["url"] = "res/" + name + "/" + name + "_normalMap." + term;
+      return toR;
+    }
+
+    function loadTexturesFromArray(texturesToLoad, curr) {
+      console.log("loading texture " + curr);
+      if (curr == 0){
+        return fetch(texturesToLoad[curr]["url"]);
+      }
+      return loadTexturesFromArray(texturesToLoad, curr-1).then(function (response) {
+        console.log("QQ");
+        texturesMap[texturesToLoad[curr-1]["name"]] = response;
+        return new THREE.TextureLoader().load(texturesToLoad[curr]["url"]);
       });
     }
 
@@ -69,8 +103,23 @@
 
           // to be added
     function setupLight() {
-    // var ambient = new THREE.AmbientLight( 0x444444 );
-    // scene.add( ambient );
+      // var ambient = new THREE.AmbientLight(0x404040);
+      // scene.add( ambient );
+
+      var light1 = new THREE.DirectionalLight( 0xffffff );
+      light1.position.set( 0, 1, 1 ).normalize();
+      scene.add(light1);
+      var light2 = new THREE.DirectionalLight( 0xffffff );
+      light2.position.set( 0, -1, 1 ).normalize();
+      scene.add(light2);
+
+      // var directionalLight = new THREE.DirectionalLight( 0xffffff );
+			// directionalLight.position.x = Math.random() - 0.5;
+			// directionalLight.position.y = Math.random() - 0.5;
+			// directionalLight.position.z = Math.random() - 0.5;
+			// directionalLight.position.normalize();
+			// scene.add( directionalLight );
+
     // var directionalLight = new THREE.DirectionalLight( 0xffeedd );
     // directionalLight.position.set( 0, 0, 1 ).normalize();
     // scene.add( directionalLight );

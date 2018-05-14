@@ -1,9 +1,9 @@
 /////////////// FUNCTIONS CALLED IN init(level) ///////////////
-      
+
       // builds level (level)
     function buildLevel(level) {
       console.log("Building level " + level.id);
-      
+
       terrainGroup = new THREE.Group();
       for (var i = 0; i < level.size.x; i++) {
         for (var j = 0; j < level.size.y; j++) {
@@ -24,6 +24,7 @@
 
       // update player each time player dies
     function updatePlayer() {
+      playerMaterial = new THREE.MeshPhongMaterial( { map: texturesMap["grass"] } );
       player = new THREE.Mesh(playerGeometry, playerMaterial);
 
       player.position.x = currentLevel.blockSize * currentLevel.spawn.x;
