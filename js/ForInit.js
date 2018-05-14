@@ -36,8 +36,12 @@
 
       // update camera each time player dies
     function updateCamera() {
+      rotateCamera = Math.PI;
+      camera.position.x = player.position.x + 14 * Math.cos( rotateCamera );
+      camera.position.y = player.position.y + 14 * Math.sin( rotateCamera );
       camera.position.z = 14;
-      camera.rotation.z = 270*Math.PI/180;
-      camera.position.y = player.position.y;
-      camera.position.x = player.position.x - 14;
+      // camera.rotation.z = 270*Math.PI/180;
+      // camera.position.y = player.position.y;
+      // camera.position.x = player.position.x - 14;
+      cameraLookPlayer();
     }

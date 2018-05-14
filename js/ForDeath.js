@@ -8,11 +8,12 @@
 
       // clear canvas for reuse, resets variables
     function cleanCanvas() {
-      toDispose.forEach(function(e) {e.dispose()}); 
+      toDispose.forEach(function(e) {e.dispose()});
       terrainGroup.children.forEach(function(e) {terrainGroup.remove(e)});
       scene.remove(terrainGroup);
       scene.remove(player);
 
+      rotateCamera = 0;
       playerXAcc = 0;
       playerYAcc = 0;
       playerZSpeed = 1.0;

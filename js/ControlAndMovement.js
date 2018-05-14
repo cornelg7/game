@@ -45,6 +45,24 @@
           dressObject(x, "stone");
         });
       }
+      if (controlsActive && keyMap[69]) { // E
+       if (rotateCamera+cameraRotateSpeed>Math.PI)
+         rotateCamera = rotateCamera - 2*Math.PI + cameraRotateSpeed;
+       else
+          rotateCamera = rotateCamera + cameraRotateSpeed;
+        camera.position.x = player.position.x + 14 * Math.cos( rotateCamera );
+        camera.position.y = player.position.y + 14 * Math.sin( rotateCamera );
+        cameraLookPlayer();
+      }
+      if (controlsActive && keyMap[81]) { // Q
+       if (rotateCamera-cameraRotateSpeed<-Math.PI)
+         rotateCamera = rotateCamera + 2*Math.PI - cameraRotateSpeed;
+       else
+          rotateCamera = rotateCamera - cameraRotateSpeed;
+        camera.position.x = player.position.x + 14 * Math.cos( rotateCamera );
+        camera.position.y = player.position.y + 14 * Math.sin( rotateCamera );
+        cameraLookPlayer();
+      }
       if (controlsActive && keyMap[87]) { // W
         player.position.x += playerXSpeed;
         playerXAcc -= playerXSpeed/2;

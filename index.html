@@ -19,10 +19,14 @@
       var toDispose = [];
 
         // for levels
-      var numberOfLevels = 4;
+      var numberOfLevels = 1;
       var jsonLevels = []; // jsons
       var currentLevel; // json
       var terrainGroup;
+
+        // camera
+      var rotateCamera = 0;
+      var cameraRotateSpeed = 0.1;
 
         // player
       var player;
@@ -75,6 +79,7 @@
             keyMap = {};
           }
           if (playerIsFalling) {
+            cameraLookPlayer();
             playerZSpeed = playerZSpeed + playerZAcc;
             player.position.z = player.position.z - Math.log10(playerZSpeed);
            // console.log("acc: " + playerZAcc + "pos: " + player.position.z);
@@ -86,13 +91,8 @@
           }
             // for smooth movement
           playerOverdueMovements();
+
         }
-
-          // always look in front of player
-        var toLookAt = new THREE.Vector3(10.0, 0.0, 0.0);
-        toLookAt.add(player.position);
-        camera.lookAt( toLookAt );
-
         // every 3s or so
         // if (time.getElapsedTime() > 3) {
         //   time = new THREE.Clock(true);
@@ -102,6 +102,13 @@
           // essential
         requestAnimationFrame( animate );
         renderer.render( scene, camera );
+      }
+
+      function cameraLookPlayer() {
+          // look in front of player
+        var toLookAt = new THREE.Vector3(-10*Math.cos(rotateCamera), 0.0);
+        toLookAt.add(player.position);
+        camera.lookAt( toLookAt );
       }
 
     </script>
