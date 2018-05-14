@@ -39,9 +39,11 @@
       if (controlsActive)
         keyMap[e.keyCode] = e.type == 'keydown';
 
-      if (controlsActive && keyMap[88]) { // X
-        playerMaterial = new THREE.MeshPhongMaterial( { map: texturesMap["cobble_map"] } );
-        player.material = playerMaterial;
+      if (texturesLoaded && controlsActive && keyMap[88]) { // X
+        dressPlayer("cobble");
+        terrainGroup.children.forEach(function(x){
+          dressObject(x, "stone");
+        });
       }
       if (controlsActive && keyMap[87]) { // W
         player.position.x += playerXSpeed;

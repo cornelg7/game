@@ -5,11 +5,11 @@
   </head>
   <body>
     <script src="js/three.js"></script>
+    <script src="js/Utilities.js"></script>
     <script src="js/ControlAndMovement.js"></script>
     <script src="js/FirstLoad.js"></script>
     <script src="js/ForDeath.js"></script>
     <script src="js/ForInit.js"></script>
-    <script src="js/Utilities.js"></script>
     <script>
         // essential
       var camera, scene, renderer;
@@ -41,8 +41,8 @@
       var playerZAcc = 0.1;
 
         // textures
-      var texturesMap = {};
-      var workers = [];
+      var texturesMap = {}; // pairs (name, texture)
+      var texturesLoaded = false;
 
 
 

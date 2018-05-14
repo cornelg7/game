@@ -27,6 +27,7 @@
         return loadTexturesFromArray(texToLoad, texToLoad.length-1);
       }).then(function(response) {
         texturesMap[texToLoad[texToLoad.length-1]["name"]] = response;
+        texturesLoaded = true;
       });
     }
 
@@ -34,7 +35,9 @@
     function loadTexturesFromArray(texturesToLoad, curr) {
       console.log("loading texture " + curr);
       if (curr == 0){
-        return fetch(texturesToLoad[curr]["url"]);
+        return fetch(texturesToLoad[curr]["url"]).then(function(response){
+          return new THREE.TextureLoader().load(response.url);
+        });
       }
       return loadTexturesFromArray(texturesToLoad, curr-1).then(function (response) {
         console.log("QQ");
@@ -73,12 +76,6 @@
         return new THREE.TextureLoader().load("res/grass.jpg");
       }).then(function(response){
         texturesMap["grass"] = response;
-        // workers[0] = new Worker('js/LoadThingsWorker.js');
-        // workers[0].postMessage("");
-        // workers[0].addEventListener('message', function(e) {
-        //   var toPush = e.data;
-        //   toPush.forEach(function(x) { texturesMap.push(x) });
-        // }, false);
       });
     }
 
