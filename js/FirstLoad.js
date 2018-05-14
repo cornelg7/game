@@ -9,10 +9,11 @@
       }).then(function(response){
         console.log(response);
         init(0);
+        animate(); // start animating
       });
     }
 
-      // creating resources that are reused each time player dies  
+      // creating resources that are reused each time player dies
     function createWorld() {
       setupCamera();
       setupScene();
