@@ -2,42 +2,48 @@
 
       // loads everything, creates world and calls init(0)
     function firstInit() {
-      loadEverything().then(function(response){
+      loadEverythingEssential().then(function(response){
         console.log("Loaded everything.");
         createWorld();
         return "Created world.";
       }).then(function(response){
         console.log(response);
+        loadEverythingElse();
         init(0);
         animate(); // start animating
       });
     }
 
-      // creating resources that are reused each time player dies
-    function createWorld() {
-      setupCamera();
-      setupScene();
-      setupLight();
-      setupRenderer();
-      playerGeometry = new THREE.SphereGeometry( 2, 32, 32 );
-    }
-
-      // loads all levels and textures
-    function loadEverything() {
+      // loads things not essential for level 0
+    function loadEverythingElse() {
       var texToLoad;
-      return loadAllLevels(numberOfLevels-1).then(function (response) {
-        return new THREE.TextureLoader().load("res/grass.jpg");
-      }).then(function(response){
-        texturesMap["grass"] = response;
+      fetch ("res/tree.png").then(function(response){
+        texturesMap["tree"] = response;
         texToLoad = formArrayToLoadTextures("cobble", "jpg");
         return loadTexturesFromArray(texToLoad, texToLoad.length-1);
-      }).then(function(response){
+      }).then(function(response) {
         texturesMap[texToLoad[texToLoad.length-1]["name"]] = response;
         texToLoad = formArrayToLoadTextures("stone", "jpg");
         return loadTexturesFromArray(texToLoad, texToLoad.length-1);
+      }).then(function(response) {
+        texturesMap[texToLoad[texToLoad.length-1]["name"]] = response;
       });
     }
 
+      // loads all textures in the parameter array
+    function loadTexturesFromArray(texturesToLoad, curr) {
+      console.log("loading texture " + curr);
+      if (curr == 0){
+        return fetch(texturesToLoad[curr]["url"]);
+      }
+      return loadTexturesFromArray(texturesToLoad, curr-1).then(function (response) {
+        console.log("QQ");
+        texturesMap[texturesToLoad[curr-1]["name"]] = response;
+        return new THREE.TextureLoader().load(texturesToLoad[curr]["url"]);
+      });
+    }
+
+      // forms an array with texture urls
     function formArrayToLoadTextures(name, term) {
       var toR = [];
       var len = 4; for (i = 0; i < len; i++) toR.push({});
@@ -52,15 +58,27 @@
       return toR;
     }
 
-    function loadTexturesFromArray(texturesToLoad, curr) {
-      console.log("loading texture " + curr);
-      if (curr == 0){
-        return fetch(texturesToLoad[curr]["url"]);
-      }
-      return loadTexturesFromArray(texturesToLoad, curr-1).then(function (response) {
-        console.log("QQ");
-        texturesMap[texturesToLoad[curr-1]["name"]] = response;
-        return new THREE.TextureLoader().load(texturesToLoad[curr]["url"]);
+      // creating resources that are reused each time player dies
+    function createWorld() {
+      setupCamera();
+      setupScene();
+      setupLight();
+      setupRenderer();
+      playerGeometry = new THREE.SphereGeometry( 2, 32, 32 );
+    }
+
+      // loads all levels and textures
+    function loadEverythingEssential() {
+      return loadAllLevels(numberOfLevels-1).then(function (response) {
+        return new THREE.TextureLoader().load("res/grass.jpg");
+      }).then(function(response){
+        texturesMap["grass"] = response;
+        // workers[0] = new Worker('js/LoadThingsWorker.js');
+        // workers[0].postMessage("");
+        // workers[0].addEventListener('message', function(e) {
+        //   var toPush = e.data;
+        //   toPush.forEach(function(x) { texturesMap.push(x) });
+        // }, false);
       });
     }
 

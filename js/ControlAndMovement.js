@@ -7,7 +7,7 @@
         player.rotation.x -= playerYAcc;
         camera.position.y += playerYAcc;
         playerYAcc -= playerYAcc/50;
-      } 
+      }
       else if (playerYAcc < -eps) {
         player.position.y += playerYAcc;
         player.rotation.x -= playerYAcc;
@@ -39,6 +39,10 @@
       if (controlsActive)
         keyMap[e.keyCode] = e.type == 'keydown';
 
+      if (controlsActive && keyMap[88]) { // X
+        playerMaterial = new THREE.MeshPhongMaterial( { map: texturesMap["cobble_map"] } );
+        player.material = playerMaterial;
+      }
       if (controlsActive && keyMap[87]) { // W
         player.position.x += playerXSpeed;
         playerXAcc -= playerXSpeed/2;
