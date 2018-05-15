@@ -2,22 +2,22 @@
 
     function overdueMovements() {
       playerOverdueMovements();
-    //  cameraOverdueMovements();
+      cameraOverdueMovements();
     }
 
     function cameraOverdueMovements() {
       if (cameraRotateAcc > eps) {
-        rotateCamera = (rotateCamera + cameraRotateSpeed)%(2*Math.PI);
+        rotateCamera = (rotateCamera + cameraRotateAcc)%(2*Math.PI);
         camera.position.x = player.position.x + 14 * Math.cos( rotateCamera - Math.PI);
         camera.position.y = player.position.y + 14 * Math.sin( rotateCamera - Math.PI);
-        cameraRotateAcc -= cameraRotateAcc/2;
+        cameraRotateAcc -= cameraRotateAcc/20;
         cameraLookPlayer();
       }
       else if (cameraRotateAcc < -eps) {
-        rotateCamera = (rotateCamera - cameraRotateSpeed)%(2*Math.PI);
+        rotateCamera = (rotateCamera + cameraRotateAcc)%(2*Math.PI);
         camera.position.x = player.position.x + 14 * Math.cos( rotateCamera - Math.PI);
         camera.position.y = player.position.y + 14 * Math.sin( rotateCamera - Math.PI);
-        cameraRotateAcc -= cameraRotateAcc/2;
+        cameraRotateAcc -= cameraRotateAcc/20;
         cameraLookPlayer();
       }
       else {
@@ -31,13 +31,13 @@
         player.position.y += playerYAcc;
         player.rotation.x -= playerYAcc;
         camera.position.y += playerYAcc;
-        playerYAcc -= playerYAcc/50;
+        playerYAcc -= playerYAcc/Math.abs(55*Math.pow(playerWeight, -0.75));
       }
       else if (playerYAcc < -eps) {
         player.position.y += playerYAcc;
         player.rotation.x -= playerYAcc;
         camera.position.y += playerYAcc;
-        playerYAcc -= playerYAcc/50;
+        playerYAcc -= playerYAcc/Math.abs(55*Math.pow(playerWeight, -0.75));
       }
       else {
         playerYAcc = 0;
@@ -46,12 +46,12 @@
         player.position.x -= playerXAcc;
         player.rotation.y -= playerXAcc;
         camera.position.x -= playerXAcc;
-        playerXAcc -= playerXAcc/50;
+        playerXAcc -= playerXAcc/Math.abs(55*Math.pow(playerWeight, -0.75));
       } else if (playerXAcc < -eps) {
         player.position.x -= playerXAcc;
         player.rotation.y -= playerXAcc;
         camera.position.x -= playerXAcc;
-        playerXAcc -= playerXAcc/50;
+        playerXAcc -= playerXAcc/Math.abs(55*Math.pow(playerWeight, -0.75));
       }
       else {
         playerXAcc = 0;
@@ -70,23 +70,15 @@
           dressObject(x, "stone");
         });
       }
-      if (controlsActive && keyMap[69]) { // E
-       // if (rotateCamera+cameraRotateSpeed>Math.PI)
-       //   rotateCamera = rotateCamera - 2*Math.PI + cameraRotateSpeed;
-       // else
-       //    rotateCamera = rotateCamera + cameraRotateSpeed;
+      if (controlsActive && keyMap[81]) { // Q
         rotateCamera = (rotateCamera + cameraRotateSpeed)%(2*Math.PI);
         camera.position.x = player.position.x + 14 * Math.cos( rotateCamera - Math.PI);
         camera.position.y = player.position.y + 14 * Math.sin( rotateCamera - Math.PI);
         cameraRotateAcc += cameraRotateSpeed/2;
         cameraLookPlayer();
       }
-      if (controlsActive && keyMap[81]) { // Q
-       // if (rotateCamera-cameraRotateSpeed<-Math.PI)
-       //   rotateCamera = rotateCamera + 2*Math.PI - cameraRotateSpeed;
-       // else
-       //    rotateCamera = rotateCamera - cameraRotateSpeed;
-         rotateCamera = (rotateCamera - cameraRotateSpeed)%(2*Math.PI);
+      if (controlsActive && keyMap[69]) { // E
+        rotateCamera = (rotateCamera - cameraRotateSpeed)%(2*Math.PI);
         camera.position.x = player.position.x + 14 * Math.cos( rotateCamera - Math.PI);
         camera.position.y = player.position.y + 14 * Math.sin( rotateCamera - Math.PI);
         cameraRotateAcc -= cameraRotateSpeed/2;
@@ -94,25 +86,25 @@
       }
       if (controlsActive && keyMap[87]) { // W
         player.position.x += playerXSpeed;
-        playerXAcc -= playerXSpeed/2;
+        playerXAcc -= playerXSpeed/(playerWeight);
         player.rotation.y += playerXSpeed;
         camera.position.x += playerXSpeed;
       }
       if (controlsActive && keyMap[83]) { // S
         player.position.x -= playerXSpeed;
-        playerXAcc += playerXSpeed/2;
+        playerXAcc += playerXSpeed/(playerWeight);
         player.rotation.y -= playerXSpeed;
         camera.position.x -= playerXSpeed;
       }
       if (controlsActive && keyMap[65]) { // A
         player.position.y += playerYSpeed;
-        playerYAcc += playerYSpeed/2;
+        playerYAcc += playerYSpeed/(playerWeight);
         player.rotation.x -= playerYSpeed;
         camera.position.y += playerYSpeed;
       }
       if (controlsActive && keyMap[68]) { // D
         player.position.y -= playerYSpeed;
-        playerYAcc -= playerYSpeed/2;
+        playerYAcc -= playerYSpeed/(playerWeight);
         player.rotation.x += playerYSpeed;
         camera.position.y -= playerYSpeed;
       }

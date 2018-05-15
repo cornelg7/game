@@ -26,7 +26,7 @@
 
         // camera
       var rotateCamera = 0;
-      var cameraRotateSpeed = 0.1;
+      var cameraRotateSpeed = 0.01;
       var cameraRotateAcc = 0.0;
 
         // player
@@ -38,6 +38,7 @@
       var playerYSpeed = 0.03;
       var playerXAcc = 0.0;
       var playerYAcc = 0.0;
+      var playerWeight = 1.1; // 0 -> inf: light -> heavy
       var eps = 0.001;
       // for falling
       var playerIsFalling = false;
