@@ -27,6 +27,7 @@
         // camera
       var rotateCamera = 0;
       var cameraRotateSpeed = 0.1;
+      var cameraRotateAcc = 0.0;
 
         // player
       var player;
@@ -89,9 +90,8 @@
               reInit(0);
             }
           }
-            // for smooth movement
-          playerOverdueMovements();
-
+            // for smooth movement player + camera
+          overdueMovements();
         }
         // every 3s or so
         // if (time.getElapsedTime() > 3) {
@@ -106,7 +106,7 @@
 
       function cameraLookPlayer() {
           // look in front of player
-        var toLookAt = new THREE.Vector3(-10*Math.cos(rotateCamera), 0.0);
+        var toLookAt = new THREE.Vector3(-10*Math.cos(rotateCamera-Math.PI), -10*Math.sin(rotateCamera-Math.PI));
         toLookAt.add(player.position);
         camera.lookAt( toLookAt );
       }

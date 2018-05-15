@@ -1,5 +1,30 @@
 /////////////// CONTROLS & MOVEMENT ///////////////
 
+    function overdueMovements() {
+      playerOverdueMovements();
+    //  cameraOverdueMovements();
+    }
+
+    function cameraOverdueMovements() {
+      if (cameraRotateAcc > eps) {
+        rotateCamera = (rotateCamera + cameraRotateSpeed)%(2*Math.PI);
+        camera.position.x = player.position.x + 14 * Math.cos( rotateCamera - Math.PI);
+        camera.position.y = player.position.y + 14 * Math.sin( rotateCamera - Math.PI);
+        cameraRotateAcc -= cameraRotateAcc/2;
+        cameraLookPlayer();
+      }
+      else if (cameraRotateAcc < -eps) {
+        rotateCamera = (rotateCamera - cameraRotateSpeed)%(2*Math.PI);
+        camera.position.x = player.position.x + 14 * Math.cos( rotateCamera - Math.PI);
+        camera.position.y = player.position.y + 14 * Math.sin( rotateCamera - Math.PI);
+        cameraRotateAcc -= cameraRotateAcc/2;
+        cameraLookPlayer();
+      }
+      else {
+        cameraRotateAcc = 0;
+      }
+    }
+
       // for smooth movement
     function playerOverdueMovements() {
       if (playerYAcc > eps) {
@@ -46,21 +71,25 @@
         });
       }
       if (controlsActive && keyMap[69]) { // E
-       if (rotateCamera+cameraRotateSpeed>Math.PI)
-         rotateCamera = rotateCamera - 2*Math.PI + cameraRotateSpeed;
-       else
-          rotateCamera = rotateCamera + cameraRotateSpeed;
-        camera.position.x = player.position.x + 14 * Math.cos( rotateCamera );
-        camera.position.y = player.position.y + 14 * Math.sin( rotateCamera );
+       // if (rotateCamera+cameraRotateSpeed>Math.PI)
+       //   rotateCamera = rotateCamera - 2*Math.PI + cameraRotateSpeed;
+       // else
+       //    rotateCamera = rotateCamera + cameraRotateSpeed;
+        rotateCamera = (rotateCamera + cameraRotateSpeed)%(2*Math.PI);
+        camera.position.x = player.position.x + 14 * Math.cos( rotateCamera - Math.PI);
+        camera.position.y = player.position.y + 14 * Math.sin( rotateCamera - Math.PI);
+        cameraRotateAcc += cameraRotateSpeed/2;
         cameraLookPlayer();
       }
       if (controlsActive && keyMap[81]) { // Q
-       if (rotateCamera-cameraRotateSpeed<-Math.PI)
-         rotateCamera = rotateCamera + 2*Math.PI - cameraRotateSpeed;
-       else
-          rotateCamera = rotateCamera - cameraRotateSpeed;
-        camera.position.x = player.position.x + 14 * Math.cos( rotateCamera );
-        camera.position.y = player.position.y + 14 * Math.sin( rotateCamera );
+       // if (rotateCamera-cameraRotateSpeed<-Math.PI)
+       //   rotateCamera = rotateCamera + 2*Math.PI - cameraRotateSpeed;
+       // else
+       //    rotateCamera = rotateCamera - cameraRotateSpeed;
+         rotateCamera = (rotateCamera - cameraRotateSpeed)%(2*Math.PI);
+        camera.position.x = player.position.x + 14 * Math.cos( rotateCamera - Math.PI);
+        camera.position.y = player.position.y + 14 * Math.sin( rotateCamera - Math.PI);
+        cameraRotateAcc -= cameraRotateSpeed/2;
         cameraLookPlayer();
       }
       if (controlsActive && keyMap[87]) { // W
