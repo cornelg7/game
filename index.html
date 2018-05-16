@@ -27,9 +27,11 @@
       var levelNumberGroups = [];
 
         // camera
+      var smoothRotate = false;
       var rotateCamera = 0;
       var cameraRotateSpeed = 0.01;
       var cameraRotateAcc = 0.0;
+      var canRotate = true;
 
         // player
       var player;
@@ -64,7 +66,6 @@
         currentLevel = jsonLevels[level];
         buildLevel(currentLevel); // build current level
         if (level == 0) {
-          console.log("init lvl0");
           drawNumbersLevel0();
         }
 

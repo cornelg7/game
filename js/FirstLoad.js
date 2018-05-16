@@ -3,7 +3,7 @@
       // loads everything, creates world and calls init(0)
     function firstInit() {
       loadEverythingEssential().then(function(response){
-        console.log("Loaded everything.");
+        console.log("Loaded everything essential.");
         createWorld();
         return "Created world.";
       }).then(function(response){
@@ -28,19 +28,18 @@
       }).then(function(response) {
         texturesMap[texToLoad[texToLoad.length-1]["name"]] = response;
         texturesLoaded = true;
+        console.log("Loaded everything else.")
       });
     }
 
       // loads all textures in the parameter array
     function loadTexturesFromArray(texturesToLoad, curr) {
-      console.log("loading texture " + curr);
       if (curr == 0){
         return fetch(texturesToLoad[curr]["url"]).then(function(response){
           return new THREE.TextureLoader().load(response.url);
         });
       }
       return loadTexturesFromArray(texturesToLoad, curr-1).then(function (response) {
-        console.log("QQ");
         texturesMap[texturesToLoad[curr-1]["name"]] = response;
         return new THREE.TextureLoader().load(texturesToLoad[curr]["url"]);
       });

@@ -2,7 +2,8 @@
 
     function overdueMovements() {
       playerOverdueMovements();
-      cameraOverdueMovements();
+      if (smoothRotate)
+        cameraOverdueMovements();
     }
 
     function cameraOverdueMovements() {
@@ -85,8 +86,10 @@
       // keyboard events
     var keyMap = {};
     onkeydown = onkeyup = function(e){
-      if (controlsActive)
+      if (controlsActive) {
         keyMap[e.keyCode] = e.type == 'keydown';
+        canRotate = (playerXAcc == 0) && (playerYAcc == 0);
+      }
 
       if (texturesLoaded && controlsActive && keyMap[88]) { // X
         dressPlayer("cobble");
@@ -94,14 +97,14 @@
           dressObject(x, "stone");
         });
       }
-      if (controlsActive && keyMap[81]) { // Q
+      if (controlsActive && canRotate && keyMap[81]) { // Q
         rotateCamera = (rotateCamera + cameraRotateSpeed)%(2*Math.PI);
         camera.position.x = player.position.x + 14 * Math.cos( rotateCamera - Math.PI);
         camera.position.y = player.position.y + 14 * Math.sin( rotateCamera - Math.PI);
         cameraRotateAcc += cameraRotateSpeed/2;
         cameraLookPlayer();
       }
-      if (controlsActive && keyMap[69]) { // E
+      if (controlsActive && canRotate && keyMap[69]) { // E
         if (rotateCamera - cameraRotateSpeed <= 0)
           rotateCamera = rotateCamera + 2*Math.PI - cameraRotateSpeed;
         else

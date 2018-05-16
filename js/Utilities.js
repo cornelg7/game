@@ -36,7 +36,6 @@
       toDispose.push(mat);
       toDispose.push(geo);
       mes.position.copy(pos);
-      console.log(mes.position);
       levelNumberGroups[group].add(mes);
     }
 
@@ -58,7 +57,5 @@
       drawLine(3, new THREE.Vector3(0, 1, 0), 1);
       levelNumberGroups[3].position.copy(new THREE.Vector3(28, 20, 1));
       levelNumberGroups[3].rotation.y = Math.PI/2;
-      levelNumberGroups.forEach(function(x){
-        scene.add(x);
-      });
+      levelNumberGroups.forEach(function(x){ scene.add(x); });
     }
