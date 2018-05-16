@@ -14,6 +14,7 @@
       scene.remove(player);
 
       rotateCamera = 0;
+      cameraRotateAcc = 0;
       playerXAcc = 0;
       playerYAcc = 0;
       playerZSpeed = 1.0;
