@@ -40,7 +40,7 @@
         var rotateAlong = new THREE.Vector3(-Math.cos(rotateCamera), 0, 0).normalize();
         player.rotateOnAxis(rotateAlong, Math.abs(playerYAcc));
 
-        playerYAcc -= playerYAcc/Math.abs(55*Math.pow(playerWeight, -0.75));
+        playerYAcc -= playerYAcc/Math.abs(20*Math.pow(playerWeight, -0.75));
       }
       else if (playerYAcc < -eps) { // D
         var moveAlong = new THREE.Vector3(Math.cos(rotateCamera+3*Math.PI/2), Math.sin(rotateCamera+3*Math.PI/2), 0);
@@ -51,7 +51,7 @@
         var rotateAlong = new THREE.Vector3(Math.cos(rotateCamera), 0, 0).normalize();
         player.rotateOnAxis(rotateAlong, Math.abs(playerYAcc));
 
-        playerYAcc -= playerYAcc/Math.abs(55*Math.pow(playerWeight, -0.75));
+        playerYAcc -= playerYAcc/Math.abs(20*Math.pow(playerWeight, -0.75));
       }
       else {
         playerYAcc = 0;
@@ -65,7 +65,7 @@
         var rotateAlong = new THREE.Vector3(0, -Math.cos(rotateCamera), 0).normalize();
         player.rotateOnAxis(rotateAlong, Math.abs(playerXAcc));
 
-        playerXAcc -= playerXAcc/Math.abs(55*Math.pow(playerWeight, -0.75));
+        playerXAcc -= playerXAcc/Math.abs(20*Math.pow(playerWeight, -0.75));
       }
       else if (playerXAcc < -eps) { // W
         var moveAlong = new THREE.Vector3(Math.cos(rotateCamera), Math.sin(rotateCamera), 0);
@@ -76,7 +76,7 @@
         var rotateAlong = new THREE.Vector3(0, Math.cos(rotateCamera), 0).normalize();
         player.rotateOnAxis(rotateAlong, Math.abs(playerXAcc));
 
-        playerXAcc -= playerXAcc/Math.abs(55*Math.pow(playerWeight, -0.75));
+        playerXAcc -= playerXAcc/Math.abs(20*Math.pow(playerWeight, -0.75));
       }
       else {
         playerXAcc = 0;

@@ -117,26 +117,8 @@
 
           // to be added
     function setupLight() {
-      // var ambient = new THREE.AmbientLight(0x404040);
-      // scene.add( ambient );
-
-      var light1 = new THREE.DirectionalLight( 0xffffff );
-      light1.position.set( 0, 1, 1 ).normalize();
-      scene.add(light1);
-      var light2 = new THREE.DirectionalLight( 0xffffff );
-      light2.position.set( 0, -1, 1 ).normalize();
-      scene.add(light2);
-
-      // var directionalLight = new THREE.DirectionalLight( 0xffffff );
-			// directionalLight.position.x = Math.random() - 0.5;
-			// directionalLight.position.y = Math.random() - 0.5;
-			// directionalLight.position.z = Math.random() - 0.5;
-			// directionalLight.position.normalize();
-			// scene.add( directionalLight );
-
-    // var directionalLight = new THREE.DirectionalLight( 0xffeedd );
-    // directionalLight.position.set( 0, 0, 1 ).normalize();
-    // scene.add( directionalLight );
+      aboveLight = new THREE.PointLight(0xffffff, 1, lightIntensity);
+      scene.add(aboveLight);
     }
 
       // one time only set up renderer

@@ -45,10 +45,15 @@
       var playerWeight = 1.1; // 0 -> inf: light -> heavy
       var eps = 0.001;
       // for falling
+      var playerGridForgiveness = 1;
       var playerIsFalling = false;
       var playerZSpeed = 1.0;
       var playerZInitial = 2.5;
       var playerZAcc = 0.1;
+      // for lights
+      var aboveLight;
+      var distanceFromPlayer = 5;
+      var lightIntensity = 50;
 
         // textures
       var texturesMap = {}; // pairs (name, texture)
@@ -71,6 +76,7 @@
 
         updatePlayer(); // player
         updateCamera(); // place camera behind player
+        updateLight(distanceFromPlayer); // place light above player
 
         controlsActive = true; // allow controls
         inGame = true;
@@ -81,7 +87,7 @@
         if (inGame) {
           var playerGridX = coordToGrid(player.position.x);
           var playerGridY = coordToGrid(player.position.y);
-          if (gridOutOfBounds(playerGridX, playerGridY) || currentLevel.map[playerGridX][playerGridY] == 0) {
+          if (gridOutOfBounds(playerGridX, playerGridY) || (playerShouldFall(playerGridX, playerGridY) && noLandCloseToPlayer(playerGridForgiveness))) {
            // console.log("player is falling.");
             playerIsFalling = true;
             controlsActive = false;
@@ -100,6 +106,8 @@
           }
             // for smooth movement player + camera
           overdueMovements();
+
+          updateLight(distanceFromPlayer);
         }
         // every 3s or so
         // if (time.getElapsedTime() > 3) {
@@ -110,13 +118,6 @@
           // essential
         requestAnimationFrame( animate );
         renderer.render( scene, camera );
-      }
-
-      function cameraLookPlayer() {
-          // look in front of player
-        var toLookAt = new THREE.Vector3(-10*Math.cos(rotateCamera-Math.PI), -10*Math.sin(rotateCamera-Math.PI));
-        toLookAt.add(player.position);
-        camera.lookAt( toLookAt );
       }
 
     </script>

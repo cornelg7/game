@@ -1,5 +1,12 @@
 /////////////// OTHERS ///////////////
 
+    function cameraLookPlayer() {
+        // look in front of player
+      var toLookAt = new THREE.Vector3(-10*Math.cos(rotateCamera-Math.PI), -10*Math.sin(rotateCamera-Math.PI));
+      toLookAt.add(player.position);
+      camera.lookAt( toLookAt );
+    }
+
       // for transforming coords to grid and grid to coords
     function coordToGrid(x){ return Math.floor((x+Math.floor(currentLevel.blockSize/2))/currentLevel.blockSize); }
     function gridToCoord(x){ return x*currentLevel.blockSize; }
@@ -7,6 +14,24 @@
       // for checking whether the player should fall or not
     function gridOutOfBounds(pgX, pgY) {
       return pgX < 0 || pgX >= currentLevel.size.x || pgY < 0 || pgY >= currentLevel.size.y;
+    }
+
+      // function to have margin error for player to fall harder
+    function noLandCloseToPlayer(e) {
+      var arrayToCheck = [];
+      var dd = [{x:-1,y:-1},{x:-1,y:0},{x:-1,y:1},{x:0,y:1},{x:1,y:1},{x:1,y:0},{x:1,y:-1},{x:0,y:-1}];
+      dd.forEach(function(d){
+        arrayToCheck.push(new THREE.Vector3(player.position.x + d.x*e, player.position.y + d.y*e));
+      })
+      return arrayToCheck.every(function(elem){
+        var pgX = coordToGrid(elem.x);
+        var pgY = coordToGrid(elem.y);
+        return playerShouldFall(pgX, pgY);
+      });
+    }
+
+    function playerShouldFall(pgX, pgY) {
+      return currentLevel.map[pgX][pgY] == 0;
     }
 
     function getMaterialFromTextures(textureName) {

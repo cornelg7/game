@@ -47,3 +47,8 @@
 
       cameraLookPlayer();
     }
+
+    function updateLight(dist) {
+      aboveLight.position.copy(player.position);
+      aboveLight.position.z += dist;
+    }
