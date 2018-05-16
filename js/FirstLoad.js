@@ -65,6 +65,7 @@
       setupCamera();
       setupScene();
       setupLight();
+      setupSkyBox("DarkSea", "jpg");
       setupRenderer();
       playerGeometry = new THREE.SphereGeometry( 2, 32, 32 );
     }
@@ -111,14 +112,42 @@
 
       // one time only set up camera
     function setupCamera() {
-      camera = new THREE.PerspectiveCamera( 70, window.innerWidth / window.innerHeight, 0.1, 100 );
+      camera = new THREE.PerspectiveCamera( 70, window.innerWidth / window.innerHeight, 0.1, 300 );
       camera.up = new THREE.Vector3(0,0,1);
     }
 
-          // to be added
+      // light
     function setupLight() {
-      aboveLight = new THREE.PointLight(0xffffff, 1, lightIntensity);
+      // aboveLight = new THREE.Group();
+      // var l = new THREE.PointLight(0xffaa22, 1, lightIntensity);
+      // var aux = new THREE.BoxGeometry(1, 1, 1);
+      // var aux2 = new THREE.MeshBasicMaterial({color: 0xff0000});
+      // var aux3 = new THREE.Mesh(aux, aux2);
+      // aboveLight.add(l);
+      // aboveLight.add(aux3);
+      aboveLight = new THREE.PointLight(lightColor, 1, lightIntensity);
       scene.add(aboveLight);
+    }
+
+      // background: @TODO: PRELOAD BGs
+    function setupSkyBox(name, term) {
+      var imagePrefix = "res/bg/"+ name + "-";
+      var directions  = ["xpos", "xneg", "ypos", "yneg", "zpos", "zneg"];
+      var imageSuffix = "." + term;
+      var skyGeometry = new THREE.CubeGeometry( 300, 300, 300 );	
+      var loader = new THREE.TextureLoader();
+
+      var materialArray = [];
+      for (var i = 0; i < 6; i++)
+        materialArray.push( new THREE.MeshBasicMaterial({
+          map: loader.load( imagePrefix + directions[i] + imageSuffix ),
+          side: THREE.BackSide
+        }));
+      var skyBox = new THREE.Mesh( skyGeometry, materialArray );
+      toDispose.push(skyGeometry);
+      materialArray.forEach(function(x){toDispose.push(x)});
+      skyBox.rotation.x = Math.PI/2;
+      scene.add( skyBox );
     }
 
       // one time only set up renderer

@@ -31,18 +31,23 @@
     }
 
     function playerShouldFall(pgX, pgY) {
-      return currentLevel.map[pgX][pgY] == 0;
+      return gridOutOfBounds(pgX, pgY) || currentLevel.map[pgX][pgY] == 0;
     }
 
     function getMaterialFromTextures(textureName) {
-      var material = new THREE.MeshPhongMaterial( {
-        map: texturesMap[textureName + "_map"],
-        aoMap: texturesMap[textureName + "_aoMap"],
-        displacementMap: texturesMap[textureName + "_displacementMap"],
-        displacementScale: 0.2,
-        normalMap: texturesMap[textureName + "_normalMap"],
-      } );
-      return material;
+      if ((textureName + "_map") in texturesMap) {
+        var material = new THREE.MeshPhongMaterial( {
+          map: texturesMap[textureName + "_map"],
+          aoMap: texturesMap[textureName + "_aoMap"],
+          displacementMap: texturesMap[textureName + "_displacementMap"],
+          displacementScale: 0.2,
+          normalMap: texturesMap[textureName + "_normalMap"],
+        } );
+        return material;
+      }
+      else {
+        return new THREE.MeshNormalMaterial();
+      }
     }
 
     function dressPlayer(textureName) {

@@ -37,6 +37,7 @@
       var player;
       var playerGeometry;
       var playerMaterial;
+      var playerToggleDress;
       // for movement
       var playerXSpeed = 0.03;
       var playerYSpeed = 0.03;
@@ -50,10 +51,14 @@
       var playerZSpeed = 1.0;
       var playerZInitial = 2.5;
       var playerZAcc = 0.1;
-      // for lights
+        
+        // for lights
       var aboveLight;
-      var distanceFromPlayer = 5;
+      var distanceFromPlayer = 10;
       var lightIntensity = 50;
+      var lightColor = 0xff4444;
+      // for bg
+      // @TODO: PRELOAD BGs
 
         // textures
       var texturesMap = {}; // pairs (name, texture)
@@ -87,7 +92,7 @@
         if (inGame) {
           var playerGridX = coordToGrid(player.position.x);
           var playerGridY = coordToGrid(player.position.y);
-          if (gridOutOfBounds(playerGridX, playerGridY) || (playerShouldFall(playerGridX, playerGridY) && noLandCloseToPlayer(playerGridForgiveness))) {
+          if (playerShouldFall(playerGridX, playerGridY) && noLandCloseToPlayer(playerGridForgiveness)) {
            // console.log("player is falling.");
             playerIsFalling = true;
             controlsActive = false;

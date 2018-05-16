@@ -92,10 +92,20 @@
       }
 
       if (texturesLoaded && controlsActive && keyMap[88]) { // X
-        dressPlayer("cobble");
-        terrainGroup.children.forEach(function(x){
-          dressObject(x, "stone");
-        });
+        if (playerToggleDress) {
+          dressPlayer("");
+          terrainGroup.children.forEach(function(x){
+            dressObject(x, "");
+          });
+          playerToggleDress = false;
+        }
+        else {
+          dressPlayer("cobble");
+          terrainGroup.children.forEach(function(x){
+            dressObject(x, "cobble");
+          });
+          playerToggleDress = true;
+        }
       }
       if (controlsActive && canRotate && keyMap[81]) { // Q
         rotateCamera = (rotateCamera + cameraRotateSpeed)%(2*Math.PI);
