@@ -23,6 +23,8 @@
       var jsonLevels = []; // jsons
       var currentLevel; // json
       var terrainGroup;
+      // for level0
+      var levelNumberGroups = [];
 
         // camera
       var rotateCamera = 0;
@@ -61,6 +63,10 @@
       function init(level) {
         currentLevel = jsonLevels[level];
         buildLevel(currentLevel); // build current level
+        if (level == 0) {
+          console.log("init lvl0");
+          drawNumbersLevel0();
+        }
 
         updatePlayer(); // player
         updateCamera(); // place camera behind player
