@@ -22,6 +22,25 @@
       scene.add(terrainGroup);
     }
 
+      // background
+    function setupSkyBox(name, term) {
+      var imagePrefix = name + "-";
+      var directions  = ["xpos", "xneg", "ypos", "yneg", "zpos", "zneg"];
+      var skyGeometry = new THREE.CubeGeometry( 1024, 1024, 1024 );
+
+      var materialArray = [];
+      for (var i = 0; i < 6; i++)
+        materialArray.push( new THREE.MeshBasicMaterial({
+          map: texturesMap[imagePrefix + directions[i]],
+          side: THREE.BackSide
+        }));
+      skyBox = new THREE.Mesh( skyGeometry, materialArray );
+      toDispose.push(skyGeometry);
+      materialArray.forEach(function(x){toDispose.push(x)});
+      skyBox.rotation.x = Math.PI/2;
+      scene.add( skyBox );
+    }
+
       // update player each time player dies
     function updatePlayer() {
       playerMaterial = getMaterialFromTextures(currentLevel.playerTextureName);

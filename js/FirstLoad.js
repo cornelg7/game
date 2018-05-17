@@ -29,6 +29,10 @@
         return loadTexturesFromArray(texToLoad, texToLoad.length-1);
       }).then(function(response) {
         texturesMap[texToLoad[texToLoad.length-1]["name"]] = response;
+        texToLoad = formArrayToLoadSkyboxTextures("autumn", "png");
+        return loadTexturesFromArray(texToLoad, texToLoad.length-1);
+      }).then(function(response) {
+        texturesMap[texToLoad[texToLoad.length-1]["name"]] = response;
         texturesLoaded = true;
         everythingLoaded = true;
         console.log("Loaded everything else.")
@@ -60,6 +64,18 @@
       toR[2]["url"] = "res/" + name + "/" + name + "_map." + term;
       toR[3]["name"] = name + "_normalMap";
       toR[3]["url"] = "res/" + name + "/" + name + "_normalMap." + term;
+      return toR;
+    }
+
+    function formArrayToLoadSkyboxTextures(name, term) {
+      var toR = [];
+      var len = 6;
+      var imagePrefix = "res/" + name + "/"+ name + "-";
+      var directions  = ["xpos", "xneg", "ypos", "yneg", "zpos", "zneg"];
+      var imageSuffix = "." + term;
+      directions.forEach(function(x){
+        toR.push({"name": (name + "-" + x), "url": (imagePrefix + x + imageSuffix)})
+      });
       return toR;
     }
 
@@ -135,27 +151,6 @@
       // aboveLight.add(aux3);
       aboveLight = new THREE.PointLight(lightColor, 1, lightIntensity);
       scene.add(aboveLight);
-    }
-
-      // background: @TODO: PRELOAD BGs
-    function setupSkyBox(name, term) {
-      var imagePrefix = "res/" + name + "/"+ name + "-";
-      var directions  = ["xpos", "xneg", "ypos", "yneg", "zpos", "zneg"];
-      var imageSuffix = "." + term;
-      var skyGeometry = new THREE.CubeGeometry( 1024, 1024, 1024 );
-      var loader = new THREE.TextureLoader();
-
-      var materialArray = [];
-      for (var i = 0; i < 6; i++)
-        materialArray.push( new THREE.MeshBasicMaterial({
-          map: loader.load( imagePrefix + directions[i] + imageSuffix ),
-          side: THREE.BackSide
-        }));
-      var skyBox = new THREE.Mesh( skyGeometry, materialArray );
-      toDispose.push(skyGeometry);
-      materialArray.forEach(function(x){toDispose.push(x)});
-      skyBox.rotation.x = Math.PI/2;
-      scene.add( skyBox );
     }
 
       // one time only set up renderer

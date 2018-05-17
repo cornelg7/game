@@ -10,8 +10,8 @@
       // grid cords for going from level 0 to 1, 2, 3
     function addCoordsToLevelTransport() {
       levelTransp.push(new THREE.Vector3(0, 0)); // dummy head
-      //levelTransp.push(new THREE.Vector3(3, 1));
-      levelTransp.push(new THREE.Vector3(0, 4)); // for tests only
+      levelTransp.push(new THREE.Vector3(3, 1));
+      //levelTransp.push(new THREE.Vector3(0, 4)); // for tests only
       levelTransp.push(new THREE.Vector3(3, 9));
       levelTransp.push(new THREE.Vector3(7, 5));
     }
@@ -65,9 +65,7 @@
     }
 
     function dressObject(obj, textureName) {
-      console.log("taking " + textureName + " from textures");
       obj.material = getMaterialFromTextures(textureName);
-      console.log("dressed object");
     }
 
     function drawLine(group, pos) {
