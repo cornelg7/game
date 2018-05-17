@@ -48,9 +48,11 @@
         var material = new THREE.MeshPhongMaterial( {
           map: texturesMap[textureName + "_map"],
           aoMap: texturesMap[textureName + "_aoMap"],
-          displacementMap: texturesMap[textureName + "_displacementMap"],
-          displacementScale: 0.2,
+          // displacementMap: texturesMap[textureName + "_displacementMap"],
+          // displacementScale: 0.1,
           normalMap: texturesMap[textureName + "_normalMap"],
+          shininess: currentLevel.textureShininess,
+          specular: specularLight 
         } );
         return material;
       }

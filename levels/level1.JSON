@@ -3,6 +3,7 @@
 	"blockSize": 4,
 	"terrainTextureName": "cobble",
 	"playerTextureName": "cobble",
+  "textureShininess": 10,
 	"size": {
 		"x": 9,
 		"y": 11

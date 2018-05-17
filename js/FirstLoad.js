@@ -55,15 +55,15 @@
       // forms an array with texture urls
     function formArrayToLoadTextures(name, term) {
       var toR = [];
-      var len = 4; for (i = 0; i < len; i++) toR.push({});
+      var len = 3; for (i = 0; i < len; i++) toR.push({});
       toR[0]["name"] = name + "_aoMap";
       toR[0]["url"] = "res/" + name + "/" + name + "_aoMap." + term;
-      toR[1]["name"] = name + "_displacementMap";
-      toR[1]["url"] = "res/" + name + "/" + name + "_displacementMap." + term
-      toR[2]["name"] = name + "_map";
-      toR[2]["url"] = "res/" + name + "/" + name + "_map." + term;
-      toR[3]["name"] = name + "_normalMap";
-      toR[3]["url"] = "res/" + name + "/" + name + "_normalMap." + term;
+      toR[1]["name"] = name + "_map";
+      toR[1]["url"] = "res/" + name + "/" + name + "_map." + term;
+      toR[2]["name"] = name + "_normalMap";
+      toR[2]["url"] = "res/" + name + "/" + name + "_normalMap." + term;
+      // toR[3]["name"] = name + "_displacementMap";
+      // toR[3]["url"] = "res/" + name + "/" + name + "_displacementMap." + term
       return toR;
     }
 
@@ -83,7 +83,6 @@
     function createWorld() {
       setupCamera();
       setupScene();
-     // setupLight();
       setupRenderer();
       addCoordsToLevelTransport();
       levelSpecificsInit(0);
@@ -94,7 +93,7 @@
     function loadEverythingEssential() {
       var texToLoad;
       return loadLevel(0).then(function (response) {
-        texToLoad = formArrayToLoadTextures("metal", "png");
+        texToLoad = formArrayToLoadTextures("metal", "jpg");
         return loadTexturesFromArray(texToLoad, texToLoad.length-1);
       }).then(function(response) {
         texturesMap[texToLoad[texToLoad.length-1]["name"]] = response;
@@ -150,7 +149,7 @@
     }
 
       // light
-    function setupLight() {
+    //function setupLight() {
       // aboveLight = new THREE.Group();
       // var l = new THREE.PointLight(0xffaa22, 1, lightIntensity);
       // var aux = new THREE.BoxGeometry(1, 1, 1);
@@ -160,7 +159,7 @@
       // aboveLight.add(aux3);
      // aboveLight = new THREE.PointLight(lightColor, 1, lightIntensity);
      // scene.add(aboveLight);
-    }
+    //}
 
       // one time only set up renderer
     function setupRenderer() {
