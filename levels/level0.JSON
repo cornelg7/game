@@ -1,6 +1,8 @@
 {
 	"id": 0,
 	"blockSize": 4,
+	"terrainTextureName": "",
+	"playerTextureName": "",
 	"size": {
 		"x": 9,
 		"y": 11

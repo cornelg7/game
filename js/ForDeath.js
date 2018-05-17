@@ -10,6 +10,8 @@
     function cleanCanvas() {
       toDispose.forEach(function(e) {e.dispose()});
       terrainGroup.children.forEach(function(e) {terrainGroup.remove(e)});
+      levelNumberGroups.forEach(function(x) {x.children.forEach(function(e) {x.remove(e)})});
+      levelNumberGroups.forEach(function(x) {scene.remove(x)});
       scene.remove(terrainGroup);
       scene.remove(player);
 

@@ -4,6 +4,7 @@
     function firstInit() {
       loadEverythingEssential().then(function(response){
         console.log("Loaded everything essential.");
+        everythingLoaded = false;
         createWorld();
         return "Created world.";
       }).then(function(response){
@@ -17,8 +18,9 @@
       // loads things not essential for level 0
     function loadEverythingElse() {
       var texToLoad;
-      fetch ("res/tree.png").then(function(response){
-        texturesMap["tree"] = response;
+      loadAllLevels(numberOfLevels-1).then(function(response){
+        //texturesMap["tree"] = response;
+        console.log("LOADED ALL LEVELS");
         texToLoad = formArrayToLoadTextures("cobble", "jpg");
         return loadTexturesFromArray(texToLoad, texToLoad.length-1);
       }).then(function(response) {
@@ -28,6 +30,7 @@
       }).then(function(response) {
         texturesMap[texToLoad[texToLoad.length-1]["name"]] = response;
         texturesLoaded = true;
+        everythingLoaded = true;
         console.log("Loaded everything else.")
       });
     }
@@ -65,14 +68,15 @@
       setupCamera();
       setupScene();
       setupLight();
-      setupSkyBox("DarkSea", "jpg");
       setupRenderer();
+      addCoordsToLevelTransport();
+      levelSpecificsInit(0);
       playerGeometry = new THREE.SphereGeometry( 2, 32, 32 );
     }
 
       // loads all levels and textures
     function loadEverythingEssential() {
-      return loadAllLevels(numberOfLevels-1).then(function (response) {
+      return loadLevel(0).then(function (response) {
         return new THREE.TextureLoader().load("res/grass.jpg");
       }).then(function(response){
         texturesMap["grass"] = response;
@@ -81,8 +85,10 @@
 
       // loads all levels; to be called with parameter (numberOfLevels-1); returns a promise
     function loadAllLevels(curr) {
-      if (curr == 0)
-        return loadLevel(0);
+      if (curr == 1) {
+        console.log("Loading levels...");
+        return loadLevel(1);
+      }
       return loadAllLevels(curr-1).then(function (response) {
         return loadLevel(curr);
       });
@@ -91,12 +97,14 @@
       // loads the level numbered (level); returns a promise
     function loadLevel(level) {
       var s = "levels/level" + level.toString() + ".JSON";
-      // console.log("loading level " + level + "...")
+      //console.log("loading level " + level + "...")
       return fetch( s ).then( function( response ) {
+        //console.log("Fetched level " + level);
         return response.json();
       }).then(function(myJson) {
+        //console.log("processed .json of " + level);
         jsonLevels[level] = myJson;
-        // console.log("level " + level + " just loaded");
+        //console.log("level " + level + " just loaded");
       }).catch( function( err ) {
         console.log("couldn't load level " + level + " ; " + err);
       });
@@ -112,7 +120,7 @@
 
       // one time only set up camera
     function setupCamera() {
-      camera = new THREE.PerspectiveCamera( 70, window.innerWidth / window.innerHeight, 0.1, 300 );
+      camera = new THREE.PerspectiveCamera( 70, window.innerWidth / window.innerHeight, 0.1, 1024 );
       camera.up = new THREE.Vector3(0,0,1);
     }
 
@@ -131,10 +139,10 @@
 
       // background: @TODO: PRELOAD BGs
     function setupSkyBox(name, term) {
-      var imagePrefix = "res/bg/"+ name + "-";
+      var imagePrefix = "res/" + name + "/"+ name + "-";
       var directions  = ["xpos", "xneg", "ypos", "yneg", "zpos", "zneg"];
       var imageSuffix = "." + term;
-      var skyGeometry = new THREE.CubeGeometry( 300, 300, 300 );	
+      var skyGeometry = new THREE.CubeGeometry( 1024, 1024, 1024 );
       var loader = new THREE.TextureLoader();
 
       var materialArray = [];

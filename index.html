@@ -6,6 +6,7 @@
   <body>
     <script src="js/three.js"></script>
     <script src="js/Utilities.js"></script>
+    <script src="js/LevelSpecifics.js"></script>
     <script src="js/ControlAndMovement.js"></script>
     <script src="js/FirstLoad.js"></script>
     <script src="js/ForDeath.js"></script>
@@ -17,14 +18,17 @@
       var controlsActive = false;
       var inGame = false;
       var toDispose = [];
+      var everythingLoaded;
 
         // for levels
-      var numberOfLevels = 1;
+      var numberOfLevels = 2;
       var jsonLevels = []; // jsons
       var currentLevel; // json
       var terrainGroup;
       // for level0
       var levelNumberGroups = [];
+      var nextLevelNumber = 0;
+      var levelTransp = [];
 
         // camera
       var smoothRotate = false;
@@ -51,12 +55,12 @@
       var playerZSpeed = 1.0;
       var playerZInitial = 2.5;
       var playerZAcc = 0.1;
-        
+
         // for lights
       var aboveLight;
       var distanceFromPlayer = 10;
       var lightIntensity = 50;
-      var lightColor = 0xff4444;
+      var lightColor = 0xffffff;
       // for bg
       // @TODO: PRELOAD BGs
 
@@ -73,11 +77,10 @@
 
         // initialize level (level)
       function init(level) {
+        nextLevelNumber = 0;
         currentLevel = jsonLevels[level];
+        levelSpecificsInit(level);
         buildLevel(currentLevel); // build current level
-        if (level == 0) {
-          drawNumbersLevel0();
-        }
 
         updatePlayer(); // player
         updateCamera(); // place camera behind player
@@ -97,6 +100,9 @@
             playerIsFalling = true;
             controlsActive = false;
             keyMap = {};
+            if (currentLevel.id == 0 && playerGridX == levelTransp[1].x && playerGridY == levelTransp[1].y) {
+              nextLevelNumber = 1;
+            }
           }
           if (playerIsFalling) {
             cameraLookPlayer();
@@ -106,7 +112,12 @@
             if (player.position.z < -20) {
               console.log("///////// Player died. Restarting game..")
               inGame = false;
-              reInit(0);
+              if (everythingLoaded || nextLevelNumber == 0)
+                reInit(nextLevelNumber);
+              else {
+                console.log("Level not loaded yet");
+                reInit(0);
+              }
             }
           }
             // for smooth movement player + camera
