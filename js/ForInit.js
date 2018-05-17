@@ -67,7 +67,12 @@
       cameraLookPlayer();
     }
 
-    function updateLight(dist) {
+    function setupLight() {
+      aboveLight = new THREE.PointLight(lightColor, 1, lightIntensity);
+      scene.add(aboveLight);
+    }
+
+    function updateLight() {
       aboveLight.position.copy(player.position);
-      aboveLight.position.z += dist;
+      aboveLight.position.z += lightDistanceFromPlayer;
     }

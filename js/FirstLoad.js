@@ -83,7 +83,7 @@
     function createWorld() {
       setupCamera();
       setupScene();
-      setupLight();
+     // setupLight();
       setupRenderer();
       addCoordsToLevelTransport();
       levelSpecificsInit(0);
@@ -92,8 +92,17 @@
 
       // loads all levels and textures
     function loadEverythingEssential() {
+      var texToLoad;
       return loadLevel(0).then(function (response) {
-        return new THREE.TextureLoader().load("res/grass.jpg");
+        texToLoad = formArrayToLoadTextures("metal", "png");
+        return loadTexturesFromArray(texToLoad, texToLoad.length-1);
+      }).then(function(response) {
+        texturesMap[texToLoad[texToLoad.length-1]["name"]] = response;
+        texToLoad = formArrayToLoadSkyboxTextures("nebula", "png");
+        return loadTexturesFromArray(texToLoad, texToLoad.length-1);
+      }).then(function(response) {
+        texturesMap[texToLoad[texToLoad.length-1]["name"]] = response;
+        // load smth for ball
       }).then(function(response){
         texturesMap["grass"] = response;
       });
@@ -149,8 +158,8 @@
       // var aux3 = new THREE.Mesh(aux, aux2);
       // aboveLight.add(l);
       // aboveLight.add(aux3);
-      aboveLight = new THREE.PointLight(lightColor, 1, lightIntensity);
-      scene.add(aboveLight);
+     // aboveLight = new THREE.PointLight(lightColor, 1, lightIntensity);
+     // scene.add(aboveLight);
     }
 
       // one time only set up renderer

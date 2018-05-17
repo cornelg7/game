@@ -1,8 +1,8 @@
 {
 	"id": 0,
 	"blockSize": 4,
-	"terrainTextureName": "",
-	"playerTextureName": "",
+	"terrainTextureName": "metal",
+	"playerTextureName": "metal",
 	"size": {
 		"x": 9,
 		"y": 11

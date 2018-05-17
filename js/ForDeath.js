@@ -15,6 +15,7 @@
       scene.remove(skyBox);
       scene.remove(terrainGroup);
       scene.remove(player);
+      scene.remove(aboveLight);
 
       rotateCamera = 0;
       cameraRotateAcc = 0;

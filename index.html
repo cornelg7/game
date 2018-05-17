@@ -58,9 +58,9 @@
 
         // for lights
       var aboveLight;
-      var distanceFromPlayer = 10;
+      var lightDistanceFromPlayer = 10;
       var lightIntensity = 50;
-      var lightColor = 0xffffff;
+      var lightColor;
       // for bg
       var skyBox;
 
@@ -84,7 +84,7 @@
 
         updatePlayer(); // player
         updateCamera(); // place camera behind player
-        updateLight(distanceFromPlayer); // place light above player
+        setupLight(); // place light above player
 
         controlsActive = true; // allow controls
         inGame = true;
@@ -123,7 +123,7 @@
             // for smooth movement player + camera
           overdueMovements();
 
-          updateLight(distanceFromPlayer);
+          updateLight();
         }
         // every 3s or so
         // if (time.getElapsedTime() > 3) {
