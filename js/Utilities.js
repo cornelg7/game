@@ -10,8 +10,8 @@
       // grid cords for going from level 0 to 1, 2, 3
     function addCoordsToLevelTransport() {
       levelTransp.push(new THREE.Vector3(0, 0)); // dummy head
-      levelTransp.push(new THREE.Vector3(3, 1));
-      //levelTransp.push(new THREE.Vector3(0, 4)); // for tests only
+      //levelTransp.push(new THREE.Vector3(3, 1));
+      levelTransp.push(new THREE.Vector3(0, 4)); // for tests only
       levelTransp.push(new THREE.Vector3(3, 9));
       levelTransp.push(new THREE.Vector3(7, 5));
     }
@@ -70,8 +70,8 @@
       obj.material = getMaterialFromTextures(textureName);
     }
 
-    function drawLine(group, pos) {
-      var mat = new THREE.MeshNormalMaterial();
+    function drawLine(group, pos, material) {
+      var mat = material;
       var geo = new THREE.BoxGeometry(2, 0.5, 0.5);
       var mes = new THREE.Mesh( geo, mat );
       toDispose.push(mat);
@@ -80,23 +80,36 @@
       levelNumberGroups[group].add(mes);
     }
 
-    function drawNumbersLevel0() {
-      for (i = 1; i <= 4; i++) levelNumberGroups.push(new THREE.Group());
-      drawLine(1, new THREE.Vector3(0, 0, 0), 1);
-      levelNumberGroups[1].position.copy(new THREE.Vector3(12, 4, 1));
+    function drawNumbersLevel0() { // @TODO: to change these based on level textures:
+      var mat1 = getMaterialFromTextures("cobble");
+      var mat2 = getMaterialFromTextures("stone");
+      var mat3 = getMaterialFromTextures("metal");
+
+      for (i = 1; i <= 3; i++) levelNumberGroups.push(new THREE.Group());
+      drawLine(0, new THREE.Vector3(0, 0, 0), mat1);
+      levelNumberGroups[0].position.copy(new THREE.Vector3(12, 4, 1));
+      levelNumberGroups[0].rotation.z = Math.PI/2;
+      levelNumberGroups[0].rotation.x = Math.PI/2;
+
+      drawLine(1, new THREE.Vector3(0, -0.5, 0), mat2);
+      drawLine(1, new THREE.Vector3(0, 0.5, 0), mat2);
+      levelNumberGroups[1].position.copy(new THREE.Vector3(12, 36, 1));
       levelNumberGroups[1].rotation.z = Math.PI/2;
       levelNumberGroups[1].rotation.x = Math.PI/2;
 
-      drawLine(2, new THREE.Vector3(0, -0.5, 0), 1);
-      drawLine(2, new THREE.Vector3(0, 0.5, 0), 1);
-      levelNumberGroups[2].position.copy(new THREE.Vector3(12, 36, 1));
-      levelNumberGroups[2].rotation.z = Math.PI/2;
-      levelNumberGroups[2].rotation.x = Math.PI/2;
+      drawLine(2, new THREE.Vector3(0, -1, 0), mat3);
+      drawLine(2, new THREE.Vector3(0, 0, 0), mat3);
+      drawLine(2, new THREE.Vector3(0, 1, 0), mat3);
+      levelNumberGroups[2].position.copy(new THREE.Vector3(28, 20, 1));
+      levelNumberGroups[2].rotation.y = Math.PI/2;
 
-      drawLine(3, new THREE.Vector3(0, -1, 0), 1);
-      drawLine(3, new THREE.Vector3(0, 0, 0), 1);
-      drawLine(3, new THREE.Vector3(0, 1, 0), 1);
-      levelNumberGroups[3].position.copy(new THREE.Vector3(28, 20, 1));
-      levelNumberGroups[3].rotation.y = Math.PI/2;
-      levelNumberGroups.forEach(function(x){ scene.add(x); });
+      levelNumberGroups.forEach(function(x) {scene.add(x)});
+    }
+
+    function showUpLight(x, offset) {
+      var l = new THREE.PointLight(0xffffff, 1, 5);
+      l.position.copy(x.position);
+      l.position.add(offset);
+      level0NumberGroupLights.push(l);
+      return l;
     }

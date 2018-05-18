@@ -2,6 +2,7 @@
 
       // loads everything, creates world and calls init(0)
     function firstInit() {
+      console.log("Waiting for essential stuff...");
       loadEverythingEssential().then(function(response){
         console.log("Loaded everything essential.");
         everythingLoaded = false;
@@ -19,16 +20,6 @@
     function loadEverythingElse() {
       var texToLoad;
       loadAllLevels(numberOfLevels-1).then(function(response){
-        //texturesMap["tree"] = response;
-        console.log("LOADED ALL LEVELS");
-        texToLoad = formArrayToLoadTextures("cobble", "jpg");
-        return loadTexturesFromArray(texToLoad, texToLoad.length-1);
-      }).then(function(response) {
-        texturesMap[texToLoad[texToLoad.length-1]["name"]] = response;
-        texToLoad = formArrayToLoadTextures("stone", "jpg");
-        return loadTexturesFromArray(texToLoad, texToLoad.length-1);
-      }).then(function(response) {
-        texturesMap[texToLoad[texToLoad.length-1]["name"]] = response;
         texToLoad = formArrayToLoadSkyboxTextures("autumn", "png");
         return loadTexturesFromArray(texToLoad, texToLoad.length-1);
       }).then(function(response) {
@@ -85,7 +76,6 @@
       setupScene();
       setupRenderer();
       addCoordsToLevelTransport();
-      levelSpecificsInit(0);
       playerGeometry = new THREE.SphereGeometry( 2, 32, 32 );
     }
 
@@ -93,24 +83,33 @@
     function loadEverythingEssential() {
       var texToLoad;
       return loadLevel(0).then(function (response) {
-        texToLoad = formArrayToLoadTextures("metal", "jpg");
+        texToLoad = formArrayToLoadTextures("metal", "jpg");    // for lv0
         return loadTexturesFromArray(texToLoad, texToLoad.length-1);
       }).then(function(response) {
         texturesMap[texToLoad[texToLoad.length-1]["name"]] = response;
-        texToLoad = formArrayToLoadSkyboxTextures("nebula", "png");
+        texToLoad = formArrayToLoadSkyboxTextures("nebula", "png"); // for lv0
         return loadTexturesFromArray(texToLoad, texToLoad.length-1);
       }).then(function(response) {
         texturesMap[texToLoad[texToLoad.length-1]["name"]] = response;
-        // load smth for ball
-      }).then(function(response){
-        texturesMap["grass"] = response;
+        texToLoad = formArrayToLoadTextures("cobble", "jpg");     // for lv1
+        return loadTexturesFromArray(texToLoad, texToLoad.length-1);
+      }).then(function(response) {
+        texturesMap[texToLoad[texToLoad.length-1]["name"]] = response;
+        texToLoad = formArrayToLoadTextures("stone", "jpg");      // for lv2 @TODO: change the name after adding res
+        return loadTexturesFromArray(texToLoad, texToLoad.length-1);
+      }).then(function(response) {
+        texturesMap[texToLoad[texToLoad.length-1]["name"]] = response;
+        texToLoad = formArrayToLoadTextures("stone", "jpg");      // for lv3 @TODO: change the name after adding res
+        return loadTexturesFromArray(texToLoad, texToLoad.length-1);
+      }).then(function(response) {
+        texturesMap[texToLoad[texToLoad.length-1]["name"]] = response;
       });
     }
 
       // loads all levels; to be called with parameter (numberOfLevels-1); returns a promise
     function loadAllLevels(curr) {
       if (curr == 1) {
-        console.log("Loading levels...");
+        // console.log("Loading levels...");
         return loadLevel(1);
       }
       return loadAllLevels(curr-1).then(function (response) {

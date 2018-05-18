@@ -12,11 +12,14 @@
       terrainGroup.children.forEach(function(e) {terrainGroup.remove(e)});
       levelNumberGroups.forEach(function(x) {x.children.forEach(function(e) {x.remove(e)})});
       levelNumberGroups.forEach(function(x) {scene.remove(x)});
+      level0NumberGroupLights.forEach(function(x) {scene.remove(x)});
       scene.remove(skyBox);
       scene.remove(terrainGroup);
       scene.remove(player);
       scene.remove(aboveLight);
 
+      levelNumberGroups = [];
+      level0NumberGroupLights = [];
       rotateCamera = 0;
       cameraRotateAcc = 0;
       playerXAcc = 0;
