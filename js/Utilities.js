@@ -86,7 +86,29 @@
       toDispose.push(mat);
       toDispose.push(geo);
       mes.position.copy(pos);
-      levelNumberGroups[group].add(mes);
+      if (group >= 0 && group <= 2)
+        levelNumberGroups[group].add(mes);
+      else
+        behindNumbersGroup.add(mes);
+    }
+
+    function drawNumbersLevel0Behind() {
+      var mat = [];
+      var color = [];
+      for (i = 1; i <= 3; i++) if (canPlayerWinLevel[i]) color[i] = 0xff0000; else color[i] = 0x00ff00;
+      for (i = 1; i <= 3; i++) mat[i] = new THREE.MeshPhongMaterial({color: color[i]});
+      behindNumbersGroup = new THREE.Group();
+      
+      drawLine(4, new THREE.Vector3(0, 16, 0), mat[1]);
+      drawLine(4, new THREE.Vector3(0, 23.5, 0), mat[2]);
+      drawLine(4, new THREE.Vector3(0, 24.5, 0), mat[2]);
+      drawLine(4, new THREE.Vector3(0, 19, 0), mat[3]);
+      drawLine(4, new THREE.Vector3(0, 20, 0), mat[3]);
+      drawLine(4, new THREE.Vector3(0, 21, 0), mat[3]);
+      
+      behindNumbersGroup.position.copy(new THREE.Vector3(-5, 0, 5));
+      behindNumbersGroup.rotation.y = Math.PI/2;
+      scene.add(behindNumbersGroup);
     }
 
     function drawNumbersLevel0() {
@@ -121,4 +143,11 @@
       l.position.add(offset);
       level0NumberGroupLights.push(l);
       return l;
+    }
+
+    function simulateWinLevel(x) {
+      if (canPlayerWinLevel[x]) {
+        canPlayerWinLevel[x] = false;
+        gameplayStage += 1;
+      }
     }

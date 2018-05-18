@@ -12,11 +12,13 @@
       terrainGroup.children.forEach(function(e) {terrainGroup.remove(e)});
       levelNumberGroups.forEach(function(x) {x.children.forEach(function(e) {x.remove(e)})});
       levelNumberGroups.forEach(function(x) {scene.remove(x)});
+      behindNumbersGroup.children.forEach(function(x) {behindNumbersGroup.remove(x)});
       level0NumberGroupLights.forEach(function(x) {scene.remove(x)});
       scene.remove(skyBox);
       scene.remove(terrainGroup);
       scene.remove(player);
       scene.remove(aboveLight);
+      scene.remove(behindNumbersGroup);
 
       levelNumberGroups = [];
       level0NumberGroupLights = [];

@@ -2,6 +2,7 @@
     function levelSpecificsInit(level) {
       if (level == 0) {
         drawNumbersLevel0();
+        drawNumbersLevel0Behind();
         setupSkyBox("nebula", "png");
         lightColor = 0xdd5555;
         specularLight = 0x090101;
