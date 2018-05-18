@@ -12,8 +12,10 @@
       levelTransp.push(new THREE.Vector3(0, 0)); // dummy head
       //levelTransp.push(new THREE.Vector3(3, 1));
       levelTransp.push(new THREE.Vector3(0, 4)); // for tests only
-      levelTransp.push(new THREE.Vector3(3, 9));
-      levelTransp.push(new THREE.Vector3(7, 5));
+      //levelTransp.push(new THREE.Vector3(3, 9));
+      levelTransp.push(new THREE.Vector3(0, 6)); // for tests only
+      // levelTransp.push(new THREE.Vector3(7, 5));
+      levelTransp.push(new THREE.Vector3(-1, 5)); // for tests only
     }
 
       // for transforming coords to grid and grid to coords

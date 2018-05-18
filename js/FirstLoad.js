@@ -24,6 +24,10 @@
         return loadTexturesFromArray(texToLoad, texToLoad.length-1);
       }).then(function(response) {
         texturesMap[texToLoad[texToLoad.length-1]["name"]] = response;
+        texToLoad = formArrayToLoadSkyboxTextures("sahara", "png");
+        return loadTexturesFromArray(texToLoad, texToLoad.length-1);
+      }).then(function(response) {
+        texturesMap[texToLoad[texToLoad.length-1]["name"]] = response;
         texturesLoaded = true;
         everythingLoaded = true;
         console.log("Loaded everything else.")
@@ -91,15 +95,15 @@
         return loadTexturesFromArray(texToLoad, texToLoad.length-1);
       }).then(function(response) {
         texturesMap[texToLoad[texToLoad.length-1]["name"]] = response;
-        texToLoad = formArrayToLoadTextures("cobble", "jpg");     // for lv1
+        texToLoad = formArrayToLoadTextures("stone", "jpg");     // for lv1
         return loadTexturesFromArray(texToLoad, texToLoad.length-1);
       }).then(function(response) {
         texturesMap[texToLoad[texToLoad.length-1]["name"]] = response;
-        texToLoad = formArrayToLoadTextures("stone", "jpg");      // for lv2 @TODO: change the name after adding res
+        texToLoad = formArrayToLoadTextures("sand", "png");      // for lv2
         return loadTexturesFromArray(texToLoad, texToLoad.length-1);
       }).then(function(response) {
         texturesMap[texToLoad[texToLoad.length-1]["name"]] = response;
-        texToLoad = formArrayToLoadTextures("stone", "jpg");      // for lv3 @TODO: change the name after adding res
+        texToLoad = formArrayToLoadTextures("cobble", "jpg");      // for lv3 @TODO: change the name after adding res
         return loadTexturesFromArray(texToLoad, texToLoad.length-1);
       }).then(function(response) {
         texturesMap[texToLoad[texToLoad.length-1]["name"]] = response;

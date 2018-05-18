@@ -17,8 +17,16 @@
       }
       else if (level == 1) {
         setupSkyBox("autumn", "png");
-        lightColor = 0xffffff;
-        lightIntensity = 50;
+        lightColor = 0xdddfdd;
+        lightIntensity = 110;
+        lightDistanceFromPlayer = 25;
         specularLight = 0x222222;
+      }
+      else if (level == 2) {
+        setupSkyBox("sahara", "png");
+        lightColor = 0xffffcc;
+        lightIntensity = 200;
+        lightDistanceFromPlayer = 30;
+        specularLight = 0x111111;
       }
     }

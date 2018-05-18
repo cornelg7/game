@@ -1,8 +1,8 @@
 {
 	"id": 1,
 	"blockSize": 4,
-	"terrainTextureName": "cobble",
-	"playerTextureName": "cobble",
+	"terrainTextureName": "stone",
+	"playerTextureName": "stone",
   "textureShininess": 10,
 	"size": {
 		"x": 9,

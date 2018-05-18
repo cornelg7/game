@@ -21,7 +21,7 @@
       var everythingLoaded;
 
         // for levels
-      var numberOfLevels = 2;
+      var numberOfLevels = 3;
       var jsonLevels = []; // jsons
       var currentLevel; // json
       var terrainGroup;
@@ -102,9 +102,14 @@
             playerIsFalling = true;
             controlsActive = false;
             keyMap = {};
-            if (currentLevel.id == 0 && playerGridX == levelTransp[1].x && playerGridY == levelTransp[1].y) {
-              nextLevelNumber = 1;
-            }
+            if (currentLevel.id == 0) {
+              if (playerGridX == levelTransp[1].x && playerGridY == levelTransp[1].y) {
+                nextLevelNumber = 1;
+              }
+              else if (playerGridX == levelTransp[2].x && playerGridY == levelTransp[2].y) {
+                nextLevelNumber = 2;
+              }
+            } 
           }
           if (playerIsFalling) {
             cameraLookPlayer();
