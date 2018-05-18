@@ -16,6 +16,7 @@
       // levelTransp.push(new THREE.Vector3(0, 6)); // for tests only
       levelTransp.push(new THREE.Vector3(7, 5));
       // levelTransp.push(new THREE.Vector3(-1, 5)); // for tests only
+      levelTransp.push(new THREE.Vector3(16, 5));
     }
 
       // for transforming coords to grid and grid to coords
@@ -45,6 +46,10 @@
       return gridOutOfBounds(pgX, pgY) || currentLevel.map[pgX][pgY] == 0;
     }
 
+    function playerWonLevel(level, pgX, pgY) {
+      return level.finish.x == pgX && level.finish.y == pgY;
+    }
+
     function getMaterialFromTextures(textureName) {
       if ((textureName + "_map") in texturesMap) {
         var material = new THREE.MeshPhongMaterial( {
@@ -54,7 +59,9 @@
           // displacementScale: 0.1,
           normalMap: texturesMap[textureName + "_normalMap"],
           shininess: currentLevel.textureShininess,
-          specular: specularLight 
+          // transparent: true,
+          // opacity: 0.5,
+          specular: specularLight
         } );
         return material;
       }

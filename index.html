@@ -21,7 +21,9 @@
       var everythingLoaded;
 
         // for levels
-      var numberOfLevels = 4;
+      var numberOfLevels = 5;
+      var gameplayStage = 1;
+      var canPlayerWinLevel = [false, true, true, true];
       var jsonLevels = []; // jsons
       var currentLevel; // json
       var terrainGroup;
@@ -113,7 +115,14 @@
               else if (playerGridX == levelTransp[3].x && playerGridY == levelTransp[3].y) {
                 nextLevelNumber = 3;
               }
-            } 
+              else if (gameplayStage == 4 && playerGridX == levelTransp[4].x && playerGridY == levelTransp[4].y) {
+                nextLevelNumber = 4;
+              }
+            }
+            else if (currentLevel.id >= 1 && currentLevel.id <= 3 && canPlayerWinLevel[currentLevel.id] && playerWonLevel(currentLevel, playerGridX, playerGridY)) {
+              canPlayerWinLevel[currentLevel.id] = false;
+              gameplayStage += 1;
+            }
           }
           if (playerIsFalling) {
             cameraLookPlayer();

@@ -38,4 +38,12 @@
         lightDistanceFromPlayer = 35;
         specularLight = 0x333333;
       }
+      else if (level == 4) {
+        console.log("You win.");
+        setupSkyBox("autumn", "png");
+        lightColor = 0xffffff;
+        lightIntensity = 300;
+        lightDistanceFromPlayer = 35;
+        specularLight = 0x333333;
+      }
     }
