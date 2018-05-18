@@ -21,7 +21,7 @@
       var everythingLoaded;
 
         // for levels
-      var numberOfLevels = 3;
+      var numberOfLevels = 4;
       var jsonLevels = []; // jsons
       var currentLevel; // json
       var terrainGroup;
@@ -108,6 +108,9 @@
               }
               else if (playerGridX == levelTransp[2].x && playerGridY == levelTransp[2].y) {
                 nextLevelNumber = 2;
+              }
+              else if (playerGridX == levelTransp[3].x && playerGridY == levelTransp[3].y) {
+                nextLevelNumber = 3;
               }
             } 
           }

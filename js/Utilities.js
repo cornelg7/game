@@ -10,12 +10,12 @@
       // grid cords for going from level 0 to 1, 2, 3
     function addCoordsToLevelTransport() {
       levelTransp.push(new THREE.Vector3(0, 0)); // dummy head
-      //levelTransp.push(new THREE.Vector3(3, 1));
-      levelTransp.push(new THREE.Vector3(0, 4)); // for tests only
-      //levelTransp.push(new THREE.Vector3(3, 9));
-      levelTransp.push(new THREE.Vector3(0, 6)); // for tests only
-      // levelTransp.push(new THREE.Vector3(7, 5));
-      levelTransp.push(new THREE.Vector3(-1, 5)); // for tests only
+      levelTransp.push(new THREE.Vector3(3, 1));
+      // levelTransp.push(new THREE.Vector3(0, 4)); // for tests only
+      levelTransp.push(new THREE.Vector3(3, 9));
+      // levelTransp.push(new THREE.Vector3(0, 6)); // for tests only
+      levelTransp.push(new THREE.Vector3(7, 5));
+      // levelTransp.push(new THREE.Vector3(-1, 5)); // for tests only
     }
 
       // for transforming coords to grid and grid to coords
@@ -82,10 +82,10 @@
       levelNumberGroups[group].add(mes);
     }
 
-    function drawNumbersLevel0() { // @TODO: to change these based on level textures:
-      var mat1 = getMaterialFromTextures("cobble");
-      var mat2 = getMaterialFromTextures("stone");
-      var mat3 = getMaterialFromTextures("metal");
+    function drawNumbersLevel0() {
+      var mat1 = getMaterialFromTextures("stone");
+      var mat2 = getMaterialFromTextures("sand");
+      var mat3 = getMaterialFromTextures("snow");
 
       for (i = 1; i <= 3; i++) levelNumberGroups.push(new THREE.Group());
       drawLine(0, new THREE.Vector3(0, 0, 0), mat1);
@@ -108,8 +108,8 @@
       levelNumberGroups.forEach(function(x) {scene.add(x)});
     }
 
-    function showUpLight(x, offset) {
-      var l = new THREE.PointLight(0xffffff, 1, 5);
+    function showUpLight(x, offset, colour) {
+      var l = new THREE.PointLight(colour, 1, 5);
       l.position.copy(x.position);
       l.position.add(offset);
       level0NumberGroupLights.push(l);

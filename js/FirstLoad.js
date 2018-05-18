@@ -28,6 +28,10 @@
         return loadTexturesFromArray(texToLoad, texToLoad.length-1);
       }).then(function(response) {
         texturesMap[texToLoad[texToLoad.length-1]["name"]] = response;
+        texToLoad = formArrayToLoadSkyboxTextures("winter", "png");
+        return loadTexturesFromArray(texToLoad, texToLoad.length-1);
+      }).then(function(response) {
+        texturesMap[texToLoad[texToLoad.length-1]["name"]] = response;
         texturesLoaded = true;
         everythingLoaded = true;
         console.log("Loaded everything else.")
@@ -83,7 +87,7 @@
       playerGeometry = new THREE.SphereGeometry( 2, 32, 32 );
     }
 
-      // loads all levels and textures
+      // loads all levels and textures that are needed for level0
     function loadEverythingEssential() {
       var texToLoad;
       return loadLevel(0).then(function (response) {
@@ -103,7 +107,11 @@
         return loadTexturesFromArray(texToLoad, texToLoad.length-1);
       }).then(function(response) {
         texturesMap[texToLoad[texToLoad.length-1]["name"]] = response;
-        texToLoad = formArrayToLoadTextures("cobble", "jpg");      // for lv3 @TODO: change the name after adding res
+        texToLoad = formArrayToLoadTextures("ice", "png");      // for lv3
+        return loadTexturesFromArray(texToLoad, texToLoad.length-1);
+      }).then(function(response) {
+        texturesMap[texToLoad[texToLoad.length-1]["name"]] = response;
+        texToLoad = formArrayToLoadTextures("snow", "png");      // for lv3
         return loadTexturesFromArray(texToLoad, texToLoad.length-1);
       }).then(function(response) {
         texturesMap[texToLoad[texToLoad.length-1]["name"]] = response;
