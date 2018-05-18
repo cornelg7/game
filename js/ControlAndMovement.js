@@ -11,7 +11,7 @@
         rotateCamera = (rotateCamera + cameraRotateAcc)%(2*Math.PI);
         camera.position.x = player.position.x + 14 * Math.cos( rotateCamera - Math.PI);
         camera.position.y = player.position.y + 14 * Math.sin( rotateCamera - Math.PI);
-        cameraRotateAcc -= cameraRotateAcc/20;
+        cameraRotateAcc -= cameraRotateAcc/10;
         cameraLookPlayer();
       }
       else if (cameraRotateAcc < -eps) {
@@ -21,10 +21,22 @@
           rotateCamera = (rotateCamera + cameraRotateAcc)%(2*Math.PI);
         camera.position.x = player.position.x + 14 * Math.cos( rotateCamera - Math.PI);
         camera.position.y = player.position.y + 14 * Math.sin( rotateCamera - Math.PI);
-        cameraRotateAcc -= cameraRotateAcc/20;
+        cameraRotateAcc -= cameraRotateAcc/10;
         cameraLookPlayer();
       }
-      else {
+      else { // snap camera
+        if (rotateCamera >= Math.PI/4 && rotateCamera < 3*Math.PI/4)
+          rotateCamera = Math.PI/2;
+        else if (rotateCamera >= 3*Math.PI/4 && rotateCamera < 5*Math.PI/4)
+          rotateCamera = Math.PI;
+        else if (rotateCamera >= 5*Math.PI/4 && rotateCamera < 7*Math.PI/4)
+          rotateCamera = 3*Math.PI/2;
+        else
+          rotateCamera = 0;
+        
+        camera.position.x = player.position.x + 14 * Math.cos( rotateCamera - Math.PI);
+        camera.position.y = player.position.y + 14 * Math.sin( rotateCamera - Math.PI);
+        cameraLookPlayer();
         cameraRotateAcc = 0;
       }
     }
@@ -88,25 +100,26 @@
     onkeydown = onkeyup = function(e){
       if (controlsActive) {
         keyMap[e.keyCode] = e.type == 'keydown';
-        canRotate = (playerXAcc == 0) && (playerYAcc == 0);
+        canRotate = (playerXAcc == 0) && (playerYAcc == 0) && (cameraRotateAcc == 0);
+        canMove = (cameraRotateAcc == 0);
       }
 
-      if (texturesLoaded && controlsActive && keyMap[88]) { // X
-        if (playerToggleDress) {
-          dressPlayer("");
-          terrainGroup.children.forEach(function(x){
-            dressObject(x, "");
-          });
-          playerToggleDress = false;
-        }
-        else {
-          dressPlayer("cobble");
-          terrainGroup.children.forEach(function(x){
-            dressObject(x, "cobble");
-          });
-          playerToggleDress = true;
-        }
-      }
+      // if (texturesLoaded && controlsActive && keyMap[88]) { // X
+      //   if (playerToggleDress) {
+      //     dressPlayer("");
+      //     terrainGroup.children.forEach(function(x){
+      //       dressObject(x, "");
+      //     });
+      //     playerToggleDress = false;
+      //   }
+      //   else {
+      //     dressPlayer("cobble");
+      //     terrainGroup.children.forEach(function(x){
+      //       dressObject(x, "cobble");
+      //     });
+      //     playerToggleDress = true;
+      //   }
+      // }
       if (controlsActive && canRotate && keyMap[81]) { // Q
         rotateCamera = (rotateCamera + cameraRotateSpeed)%(2*Math.PI);
         camera.position.x = player.position.x + 14 * Math.cos( rotateCamera - Math.PI);
@@ -124,7 +137,7 @@
         cameraRotateAcc -= cameraRotateSpeed/2;
         cameraLookPlayer();
       }
-      if (controlsActive && keyMap[87]) { // W
+      if (controlsActive && canMove && keyMap[87]) { // W
         var moveAlong = new THREE.Vector3(Math.cos(rotateCamera), Math.sin(rotateCamera), 0);
         moveAlong.multiplyScalar(playerXSpeed);
         player.position.add(moveAlong);
@@ -135,7 +148,7 @@
 
         playerXAcc -= playerXSpeed/(playerWeight);
       }
-      if (controlsActive && keyMap[83]) { // S
+      if (controlsActive && canMove && keyMap[83]) { // S
         var moveAlong = new THREE.Vector3(Math.cos(rotateCamera + Math.PI), Math.sin(rotateCamera + Math.PI), 0);
         moveAlong.multiplyScalar(playerXSpeed);
         player.position.add(moveAlong);
@@ -146,7 +159,7 @@
 
         playerXAcc += playerXSpeed/(playerWeight);
       }
-      if (controlsActive && keyMap[65]) { // A
+      if (controlsActive && canMove && keyMap[65]) { // A
         var moveAlong = new THREE.Vector3(Math.cos(rotateCamera+Math.PI/2), Math.sin(rotateCamera+Math.PI/2), 0);
         moveAlong.multiplyScalar(playerXSpeed);
         player.position.add(moveAlong);
@@ -157,7 +170,7 @@
 
         playerYAcc += playerYSpeed/(playerWeight);
       }
-      if (controlsActive && keyMap[68]) { // D
+      if (controlsActive && canMove && keyMap[68]) { // D
         var moveAlong = new THREE.Vector3(Math.cos(rotateCamera+3*Math.PI/2), Math.sin(rotateCamera+3*Math.PI/2), 0);
         moveAlong.multiplyScalar(playerXSpeed);
         player.position.add(moveAlong);
