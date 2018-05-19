@@ -20,6 +20,7 @@
       scene.remove(aboveLight);
       scene.remove(behindNumbersGroup);
 
+      level4Materials = [];
       levelNumberGroups = [];
       level0NumberGroupLights = [];
       rotateCamera = 0;

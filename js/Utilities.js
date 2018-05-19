@@ -65,9 +65,21 @@
         } );
         return material;
       }
+      else if (currentLevel.id == 4) {
+        return level4Materials[textureName];
+      }
       else {
         return new THREE.MeshNormalMaterial();
       }
+    }
+
+    function dressPlayerFromMaterial(mat) {
+      playerMaterial = mat;
+      player.material = playerMaterial;
+    }
+
+    function dressObjectFromMaterial(obj, mat) {
+      obj.material = mat;
     }
 
     function dressPlayer(textureName) {

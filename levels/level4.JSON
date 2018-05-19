@@ -1,8 +1,8 @@
 {
 	"id": 4,
 	"blockSize": 4,
-	"terrainTextureName": "metal",
-  "playerTextureName": "snow",
+	"terrainTextureName": "water",
+  "playerTextureName": "lava",
   "textureShininess": 100,
 	"size": {
 		"x": 5,

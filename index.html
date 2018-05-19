@@ -11,6 +11,36 @@
     <script src="js/FirstLoad.js"></script>
     <script src="js/ForDeath.js"></script>
     <script src="js/ForInit.js"></script>
+    <!-- shaders for level 4 -->
+    <script id="vertexShader" type="x-shader/x-vertex">
+      varying vec2 vUv;
+      void main() 
+      { 
+          vUv = uv;
+          gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
+      }
+    </script>
+      
+    <script id="fragmentShader" type="x-shader/x-vertex"> 
+      uniform sampler2D baseTexture;
+      uniform float baseSpeed;
+      uniform sampler2D noiseTexture;
+      uniform float noiseScale;
+      uniform float alpha;
+      uniform float time;
+      
+      varying vec2 vUv;
+      void main() 
+      {
+        vec2 uvTimeShift = vUv + vec2( -0.7, 1.5 ) * time * baseSpeed;	
+        vec4 noiseGeneratorTimeShift = texture2D( noiseTexture, uvTimeShift );
+        vec2 uvNoiseTimeShift = vUv + noiseScale * vec2( noiseGeneratorTimeShift.r, noiseGeneratorTimeShift.b );
+        vec4 baseColor = texture2D( baseTexture, uvNoiseTimeShift );
+      
+        baseColor.a = alpha;
+        gl_FragColor = baseColor;
+      }  
+    </script>
     <script>
         // essential
       var camera, scene, renderer;
@@ -27,6 +57,7 @@
       var jsonLevels = []; // jsons
       var currentLevel; // json
       var terrainGroup;
+      var level4Materials = {};
       // for level0
       var levelNumberGroups = [];
       var nextLevelNumber = 0;
@@ -143,6 +174,12 @@
           }
             // for smooth movement player + camera
           overdueMovements();
+          
+          if (currentLevel.id == 4) {
+            var delta = time.getDelta();
+            customUniforms.time.value += delta;
+            customUniforms2.time.value += delta;
+          }
 
           updateLight();
         }

@@ -30,6 +30,16 @@
         texturesMap[texToLoad[texToLoad.length-1]["name"]] = response;
         texToLoad = formArrayToLoadSkyboxTextures("winter", "png");
         return loadTexturesFromArray(texToLoad, texToLoad.length-1);
+      }).then(function(response) { // load for shaders from lv4
+        texturesMap[texToLoad[texToLoad.length-1]["name"]] = response;
+        texToLoad = [{}, {}, {}];
+        texToLoad[0]["name"] = "cloud";
+        texToLoad[0]["url"] = "res/shaders/cloud.png";
+        texToLoad[1]["name"] = "lava";
+        texToLoad[1]["url"] = "res/shaders/lava.jpg";
+        texToLoad[2]["name"] = "water";
+        texToLoad[2]["url"] = "res/shaders/water.jpg";
+        return loadTexturesFromArray(texToLoad, texToLoad.length-1);
       }).then(function(response) {
         texturesMap[texToLoad[texToLoad.length-1]["name"]] = response;
         texturesLoaded = true;

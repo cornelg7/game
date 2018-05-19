@@ -46,5 +46,55 @@
         lightIntensity = 300;
         lightDistanceFromPlayer = 35;
         specularLight = 0x333333;
+
+          // shaders work
+        var noiseTexture = texturesMap["cloud"];
+        noiseTexture.wrapS = noiseTexture.wrapT = THREE.RepeatWrapping; 
+          
+          // lava
+        var lavaTexture = texturesMap["lava"];
+        lavaTexture.wrapS = lavaTexture.wrapT = THREE.RepeatWrapping; 
+        
+        this.customUniforms = {
+          baseTexture: 	{ type: "t", value: lavaTexture },
+          baseSpeed: 		{ type: "f", value: 0.05 },
+          noiseTexture: 	{ type: "t", value: noiseTexture },
+          noiseScale:		{ type: "f", value: 0.5337 },
+          alpha: 			{ type: "f", value: 1.0 },
+          time: 			{ type: "f", value: 1.0 }
+        };
+        
+        var customMaterial = new THREE.ShaderMaterial( {
+          uniforms: customUniforms,
+          vertexShader: document.getElementById('vertexShader').textContent,
+          fragmentShader: document.getElementById('fragmentShader').textContent
+        });
+        customMaterial.side = THREE.DoubleSide;
+
+         // water
+        var waterTexture = texturesMap["water"];
+        waterTexture.wrapS = waterTexture.wrapT = THREE.RepeatWrapping; 
+        
+        this.customUniforms2 = {
+          baseTexture: 	{ type: "t", value: waterTexture },
+          baseSpeed: 		{ type: "f", value: 1.15 },
+          noiseTexture: 	{ type: "t", value: noiseTexture },
+          noiseScale:		{ type: "f", value: 0.2 },
+          alpha: 			{ type: "f", value: 0.8 },
+          time: 			{ type: "f", value: 1.0 }
+        };
+
+        var customMaterial2 = new THREE.ShaderMaterial({
+          uniforms: customUniforms2,
+          vertexShader: document.getElementById('vertexShader').textContent,
+          fragmentShader: document.getElementById('fragmentShader').textContent
+        });
+        customMaterial2.side = THREE.DoubleSide;
+        customMaterial2.transparent = true;
+
+        toDispose.push(customMaterial);
+        toDispose.push(customMaterial2);
+        level4Materials["lava"] = customMaterial;
+        level4Materials["water"] = customMaterial2;
       }
     }
