@@ -157,6 +157,32 @@
       return l;
     }
 
+    function addTextOnScreen(msg, pos, fontSize, textFont, materialF, materialB) {
+      var materialFront = materialF;
+      var materialSide = materialB;
+      var materialArray = [ materialFront, materialSide ];
+      var textGeom = new THREE.TextGeometry( msg, 
+      {
+        size: fontSize, height: 4, curveSegments: 3,
+        font: textFont, style: "normal",
+        // bevelThickness: 1, bevelSize: 2, bevelEnabled: true,
+        material: 0, extrudeMaterial: 1
+      });
+      var textMesh = new THREE.Mesh(textGeom, materialArray);
+      
+      toDispose.push(textGeom);
+      toDispose.push(materialFront);
+      toDispose.push(materialSide);
+
+      textGeom.computeBoundingBox();     
+      textMesh.position.copy(pos);
+      textMesh.rotation.x = Math.PI/2;
+      textMesh.rotation.y = -Math.PI/2;
+      
+      toRemove.push(textMesh);
+      scene.add(textMesh);
+    }
+
     function simulateWinLevel(x) {
       if (canPlayerWinLevel[x]) {
         canPlayerWinLevel[x] = false;

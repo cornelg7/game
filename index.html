@@ -48,6 +48,7 @@
       var controlsActive = false;
       var inGame = false;
       var toDispose = [];
+      var toRemove = [];
       var everythingLoaded;
 
         // for levels
@@ -57,12 +58,14 @@
       var jsonLevels = []; // jsons
       var currentLevel; // json
       var terrainGroup;
-      var level4Materials = {};
       // for level0
       var levelNumberGroups = [];
       var nextLevelNumber = 0;
       var levelTransp = [];
       var behindNumbersGroup;
+      // for level4
+      var level4Materials = {};
+      var loadedFonts = {};
 
         // camera
       var smoothRotate = true;

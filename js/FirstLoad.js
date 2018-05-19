@@ -42,9 +42,15 @@
         return loadTexturesFromArray(texToLoad, texToLoad.length-1);
       }).then(function(response) {
         texturesMap[texToLoad[texToLoad.length-1]["name"]] = response;
+        return loadFont("gentilis_bold.typeface");
+      }).then(function(response){
+        loadedFonts["gentilis_bold.typeface"] = response;
+        return loadFont("gentilis_regular.typeface");
+      }).then(function(response){
+        loadedFonts["gentilis_regular.typeface"] = response;
         texturesLoaded = true;
         everythingLoaded = true;
-        console.log("Loaded everything else.")
+        console.log("Loaded everything else.");
       });
     }
 
@@ -58,6 +64,16 @@
       return loadTexturesFromArray(texturesToLoad, curr-1).then(function (response) {
         texturesMap[texturesToLoad[curr-1]["name"]] = response;
         return new THREE.TextureLoader().load(texturesToLoad[curr]["url"]);
+      });
+    }
+
+      // loads the font (font); returns a promise
+    function loadFont(name) {
+      var s = "res/fonts/" + name + ".json";
+      return fetch( s ).then( function( response ) {
+        return response.json();
+      }).catch( function( err ) {
+        console.log("couldn't load level " + level + " ; " + err);
       });
     }
 

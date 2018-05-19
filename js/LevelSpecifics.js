@@ -96,5 +96,11 @@
         toDispose.push(customMaterial2);
         level4Materials["lava"] = customMaterial;
         level4Materials["water"] = customMaterial2;
+
+          // 3d text on screen
+        var loader = new THREE.FontLoader();
+        var font = loader.parse(loadedFonts["gentilis_bold.typeface"]);
+        addTextOnScreen("You Win!", new THREE.Vector3(30, 47, 8), 10, font, customMaterial, customMaterial2);
+        addTextOnScreen("c:", new THREE.Vector3(30, 24, -1), 10, font, customMaterial, customMaterial2);
       }
     }

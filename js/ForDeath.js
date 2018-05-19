@@ -14,6 +14,7 @@
       levelNumberGroups.forEach(function(x) {scene.remove(x)});
       behindNumbersGroup.children.forEach(function(x) {behindNumbersGroup.remove(x)});
       level0NumberGroupLights.forEach(function(x) {scene.remove(x)});
+      toRemove.forEach(function(x) {scene.remove(x)});
       scene.remove(skyBox);
       scene.remove(terrainGroup);
       scene.remove(player);
