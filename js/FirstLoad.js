@@ -219,7 +219,15 @@
       // one time only set up renderer
     function setupRenderer() {
       renderer = new THREE.WebGLRenderer( { antialias: true } );
-      renderer.setSize( window.innerWidth-20, window.innerHeight-20 );
+      renderer.setSize( window.innerWidth, window.innerHeight );
       renderer.domElement.id = "myCanvas";
       document.body.appendChild(renderer.domElement);
+    }
+
+      // auto resize
+    window.addEventListener( 'resize', onWindowResize, false );
+    function onWindowResize(){
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize( window.innerWidth, window.innerHeight );
     }
