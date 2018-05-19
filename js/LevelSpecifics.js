@@ -37,7 +37,7 @@
         var font = loader.parse(loadedFonts["gentilis_regular.typeface"]);
         var mat = getMaterialFromTextures("sand");
         toDispose.push(mat);
-        addTextOnScreen("3R", new THREE.Vector3(-20, 26, 8), 10, font, mat, mat);
+        addTextOnScreen("3R", new THREE.Vector3(-20, 26, 8), 10, font, mat, mat, 4, 0.8, true);
       }
       else if (level == 3) {
         setupSkyBox("winter", "png");
@@ -52,12 +52,12 @@
         if (!playerGotHintFor3) {
           var mat = getMaterialFromTextures("sand");
           toDispose.push(mat);
-          addTextOnScreen("7L", new THREE.Vector3(-20, 26, 8), 10, font, mat, mat);
+          addTextOnScreen("7L", new THREE.Vector3(-20, 26, 8), 10, font, mat, mat, 4, 0.8, true);
         }
         else {
           var mat = getMaterialFromTextures("snow");
           toDispose.push(mat);
-          addTextOnScreen("pi", new THREE.Vector3(-20, 26, 8), 10, font, mat, mat);
+          addTextOnScreen("pi", new THREE.Vector3(-20, 26, 8), 10, font, mat, mat, 4, 0.8, true);
         }
       }
       else if (level == 4) {
@@ -121,7 +121,7 @@
           // 3d text on screen
         var loader = new THREE.FontLoader();
         var font = loader.parse(loadedFonts["gentilis_bold.typeface"]);
-        addTextOnScreen("You Win!", new THREE.Vector3(30, 47, 8), 10, font, customMaterial, customMaterial2);
-        addTextOnScreen("c:", new THREE.Vector3(30, 24, -1), 10, font, customMaterial, customMaterial2);
+        addTextOnScreen("You Win!", new THREE.Vector3(30, 47, 8), 10, font, customMaterial, customMaterial2, 4, 0.8, true);
+        addTextOnScreen("c:", new THREE.Vector3(30, 24, -1), 10, font, customMaterial, customMaterial2, 4, 0.8, true);
       }
     }

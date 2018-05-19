@@ -157,15 +157,15 @@
       return l;
     }
 
-    function addTextOnScreen(msg, pos, fontSize, textFont, materialF, materialB) {
+    function addTextOnScreen(msg, pos, fontSize, textFont, materialF, materialB, h, bs, be) {
       var materialFront = materialF;
       var materialSide = materialB;
       var materialArray = [ materialFront, materialSide ];
       var textGeom = new THREE.TextGeometry( msg, 
       {
-        size: fontSize, height: 4, curveSegments: 3,
+        size: fontSize, height: h, curveSegments: 3,
         font: textFont, style: "normal",
-        bevelThickness: 1, bevelSize: 0.8, bevelEnabled: true,
+        bevelThickness: 1, bevelSize: bs, bevelEnabled: be,
         material: 0, extrudeMaterial: 1
       });
       var textMesh = new THREE.Mesh(textGeom, materialArray);
@@ -181,6 +181,16 @@
       
       toRemove.push(textMesh);
       scene.add(textMesh);
+    }
+
+    function tutorialMessage() {
+      var loader = new THREE.FontLoader();
+      var font = loader.parse(loadedFonts["gentilis_regular.typeface"]);
+      var mat1 = getMaterialFromTextures("stone");
+      var mat2 = getMaterialFromTextures("sand");
+      toDispose.push(mat1); toDispose.push(mat2);
+      addTextOnScreen("wasd to move", new THREE.Vector3(8, 26, 5), 1.5, font, mat1, mat1, 0.3, 0.01, false);
+      addTextOnScreen("qe to rotate", new THREE.Vector3(8, 25, 3), 1.5, font, mat2, mat2, 0.3, 0.01, false);
     }
 
     function simulateWinLevel(x) {

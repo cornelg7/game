@@ -10,7 +10,9 @@
         return "Created world.";
       }).then(function(response){
         console.log(response);
+        currentLevel = jsonLevels[0];
         loadEverythingElse();
+        tutorialMessage();
         init(0);
         animate(); // start animating
       });
@@ -49,9 +51,6 @@
         return loadFont("gentilis_bold.typeface");
       }).then(function(response){
         loadedFonts["gentilis_bold.typeface"] = response;
-        return loadFont("gentilis_regular.typeface");
-      }).then(function(response){
-        loadedFonts["gentilis_regular.typeface"] = response;
         texturesLoaded = true;
         everythingLoaded = true;
         console.log("Loaded everything else.");
@@ -145,6 +144,9 @@
         return loadTexturesFromArray(texToLoad, texToLoad.length-1);
       }).then(function(response) {
         texturesMap[texToLoad[texToLoad.length-1]["name"]] = response;
+        return loadFont("gentilis_regular.typeface");   // font
+      }).then(function(response){
+        loadedFonts["gentilis_regular.typeface"] = response;
       });
     }
 
