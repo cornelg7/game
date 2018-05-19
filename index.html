@@ -58,6 +58,7 @@
       var jsonLevels = []; // jsons
       var currentLevel; // json
       var terrainGroup;
+      var playerGotHintFor3 = false;
       // for level0
       var levelNumberGroups = [];
       var nextLevelNumber = 0;
@@ -157,6 +158,10 @@
             else if (currentLevel.id >= 1 && currentLevel.id <= 3 && canPlayerWinLevel[currentLevel.id] && playerWonLevel(currentLevel, playerGridX, playerGridY)) {
               canPlayerWinLevel[currentLevel.id] = false;
               gameplayStage += 1;
+            }
+              // for level 3 hint
+            if (currentLevel.id == 2 && playerGridX == 26 && playerGridY == 8) {
+              playerGotHintFor3 = true;
             }
           }
           if (playerIsFalling) {

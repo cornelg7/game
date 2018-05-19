@@ -31,6 +31,13 @@
         lightIntensity = 250;
         lightDistanceFromPlayer = 35;
         specularLight = 0x333322;
+
+          // hint
+        var loader = new THREE.FontLoader();
+        var font = loader.parse(loadedFonts["gentilis_regular.typeface"]);
+        var mat = getMaterialFromTextures("sand");
+        toDispose.push(mat);
+        addTextOnScreen("3R", new THREE.Vector3(-20, 26, 8), 10, font, mat, mat);
       }
       else if (level == 3) {
         setupSkyBox("winter", "png");
@@ -38,6 +45,20 @@
         lightIntensity = 300;
         lightDistanceFromPlayer = 35;
         specularLight = 0x333333;
+
+        // hint
+        var loader = new THREE.FontLoader();
+        var font = loader.parse(loadedFonts["gentilis_regular.typeface"]);
+        if (!playerGotHintFor3) {
+          var mat = getMaterialFromTextures("sand");
+          toDispose.push(mat);
+          addTextOnScreen("7L", new THREE.Vector3(-20, 26, 8), 10, font, mat, mat);
+        }
+        else {
+          var mat = getMaterialFromTextures("snow");
+          toDispose.push(mat);
+          addTextOnScreen("pi", new THREE.Vector3(-20, 26, 8), 10, font, mat, mat);
+        }
       }
       else if (level == 4) {
         console.log("You win.");
