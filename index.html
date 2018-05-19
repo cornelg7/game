@@ -54,6 +54,8 @@
         // for levels
       var numberOfLevels = 5;
       var gameplayStage = 1;
+      var dificulty = "hard";
+      var extraHints = false;
       var canPlayerWinLevel = [false, true, true, true];
       var jsonLevels = []; // jsons
       var currentLevel; // json
@@ -160,7 +162,7 @@
               gameplayStage += 1;
             }
               // for level 3 hint
-            if (currentLevel.id == 2 && playerGridX == 26 && playerGridY == 8) {
+            if (currentLevel.id == 2 && playerGridX == 18 && playerGridY == 8) {
               playerGotHintFor3 = true;
             }
           }

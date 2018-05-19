@@ -43,7 +43,7 @@
     }
 
     function playerShouldFall(pgX, pgY) {
-      return gridOutOfBounds(pgX, pgY) || currentLevel.map[pgX][pgY] == 0;
+      return gridOutOfBounds(pgX, pgY) || currentLevel.map[pgX][pgY] == 0 || currentLevel.map[pgX][pgY] > gameplayStage;
     }
 
     function playerWonLevel(level, pgX, pgY) {
@@ -107,16 +107,20 @@
     function drawNumbersLevel0Behind() {
       var mat = [];
       var color = [];
-      for (i = 1; i <= 3; i++) if (canPlayerWinLevel[i]) color[i] = 0xff0000; else color[i] = 0x00ff00;
+      for (i = 1; i <= 3; i++) if (canPlayerWinLevel[i]) color[i] = 0xff1111; else color[i] = 0x11ff11;
       for (i = 1; i <= 3; i++) mat[i] = new THREE.MeshPhongMaterial({color: color[i]});
       behindNumbersGroup = new THREE.Group();
       
+      var offset = new THREE.Vector3(-6, 0, 8);
       drawLine(4, new THREE.Vector3(0, 16, 0), mat[1]);
+      scene.add(showUpLight({"position": new THREE.Vector3(0, 16, 0)}, offset, color[1]));
       drawLine(4, new THREE.Vector3(0, 23.5, 0), mat[2]);
       drawLine(4, new THREE.Vector3(0, 24.5, 0), mat[2]);
+      scene.add(showUpLight({"position": new THREE.Vector3(0, 24, 0)}, offset, color[2]));
       drawLine(4, new THREE.Vector3(0, 19, 0), mat[3]);
       drawLine(4, new THREE.Vector3(0, 20, 0), mat[3]);
       drawLine(4, new THREE.Vector3(0, 21, 0), mat[3]);
+      scene.add(showUpLight({"position": new THREE.Vector3(0, 20, 0)}, offset, color[3]));
       
       behindNumbersGroup.position.copy(new THREE.Vector3(-5, 0, 5));
       behindNumbersGroup.rotation.y = Math.PI/2;

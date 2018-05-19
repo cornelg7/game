@@ -24,6 +24,19 @@
         lightIntensity = 110;
         lightDistanceFromPlayer = 25;
         specularLight = 0x111511;
+
+        if (dificulty == "easy" || extraHints == true) {        
+            // hint
+          var loader = new THREE.FontLoader();
+          var font = loader.parse(loadedFonts["gentilis_regular.typeface"]);
+          var mat = getMaterialFromTextures("sand");
+          toDispose.push(mat);
+          addTextOnScreen("og", new THREE.Vector3(-20, 26, 8), 10, font, mat, mat, 4, 0.8, true);
+          scene.add(showUpLight({"position": new THREE.Vector3(-16, 20, 12)}, new THREE.Vector3(0, -3, -3), 0xccd6cc));
+          scene.add(showUpLight({"position": new THREE.Vector3(-16, 20, 12)}, new THREE.Vector3(0, -3, 3), 0xccd6cc));
+          scene.add(showUpLight({"position": new THREE.Vector3(-16, 20, 12)}, new THREE.Vector3(0, 3, -3), 0xccd6cc));
+          scene.add(showUpLight({"position": new THREE.Vector3(-16, 20, 12)}, new THREE.Vector3(0, 3, 3), 0xccd6cc));
+        }
       }
       else if (level == 2) {
         setupSkyBox("sahara", "png");
@@ -38,6 +51,12 @@
         var mat = getMaterialFromTextures("sand");
         toDispose.push(mat);
         addTextOnScreen("3R", new THREE.Vector3(-20, 26, 8), 10, font, mat, mat, 4, 0.8, true);
+        if (dificulty == "easy" || extraHints == true) {        
+          scene.add(showUpLight({"position": new THREE.Vector3(-16, 20, 12)}, new THREE.Vector3(0, -2.5, -2.5), 0xffff00));
+          scene.add(showUpLight({"position": new THREE.Vector3(-16, 20, 12)}, new THREE.Vector3(0, -2.5, 2.5), 0xffff00));
+          scene.add(showUpLight({"position": new THREE.Vector3(-16, 20, 12)}, new THREE.Vector3(0, 2.5, -2.5), 0xffff00));
+          scene.add(showUpLight({"position": new THREE.Vector3(-16, 20, 12)}, new THREE.Vector3(0, 2.5, 2.5), 0xffff00));
+        }
       }
       else if (level == 3) {
         setupSkyBox("winter", "png");
@@ -52,7 +71,13 @@
         if (!playerGotHintFor3) {
           var mat = getMaterialFromTextures("sand");
           toDispose.push(mat);
-          addTextOnScreen("7L", new THREE.Vector3(-20, 26, 8), 10, font, mat, mat, 4, 0.8, true);
+          addTextOnScreen("5L", new THREE.Vector3(-20, 26, 8), 10, font, mat, mat, 4, 0.8, true);
+          if (dificulty == "easy" || extraHints == true) {
+            scene.add(showUpLight({"position": new THREE.Vector3(-16, 20, 12)}, new THREE.Vector3(0, -2.5, -2.5), 0xffff00));
+            scene.add(showUpLight({"position": new THREE.Vector3(-16, 20, 12)}, new THREE.Vector3(0, -2.5, 2.5), 0xffff00));
+            scene.add(showUpLight({"position": new THREE.Vector3(-16, 20, 12)}, new THREE.Vector3(0, 2.5, -2.5), 0xffff00));
+            scene.add(showUpLight({"position": new THREE.Vector3(-16, 20, 12)}, new THREE.Vector3(0, 2.5, 2.5), 0xffff00));
+          }
         }
         else {
           var mat = getMaterialFromTextures("snow");
