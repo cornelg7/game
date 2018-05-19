@@ -187,6 +187,20 @@
     function setupCamera() {
       camera = new THREE.PerspectiveCamera( 70, window.innerWidth / window.innerHeight, 0.1, 1024 );
       camera.up = new THREE.Vector3(0,0,1);
+
+        // music
+      var listener = new THREE.AudioListener();
+      camera.add( listener );
+
+      var sound = new THREE.Audio( listener );
+
+      var audioLoader = new THREE.AudioLoader();
+      audioLoader.load('res/sounds/Perspectives.mp3', function(buffer) {
+        sound.setBuffer(buffer);
+        sound.setLoop(true);
+        sound.setVolume(0.5);
+        sound.play();
+      });
     }
 
       // light
