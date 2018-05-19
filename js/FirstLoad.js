@@ -20,15 +20,19 @@
     function loadEverythingElse() {
       var texToLoad;
       loadAllLevels(numberOfLevels-1).then(function(response){
-        texToLoad = formArrayToLoadSkyboxTextures("autumn", "png");
+        texToLoad = formArrayToLoadSkyboxTextures("autumn", "png"); // level 1
         return loadTexturesFromArray(texToLoad, texToLoad.length-1);
       }).then(function(response) {
         texturesMap[texToLoad[texToLoad.length-1]["name"]] = response;
-        texToLoad = formArrayToLoadSkyboxTextures("sahara", "png");
+        texToLoad = formArrayToLoadSkyboxTextures("sahara", "png"); // level 2
         return loadTexturesFromArray(texToLoad, texToLoad.length-1);
       }).then(function(response) {
         texturesMap[texToLoad[texToLoad.length-1]["name"]] = response;
-        texToLoad = formArrayToLoadSkyboxTextures("winter", "png");
+        texToLoad = formArrayToLoadSkyboxTextures("winter", "png"); // level 3
+        return loadTexturesFromArray(texToLoad, texToLoad.length-1);
+      }).then(function(response) {
+        texturesMap[texToLoad[texToLoad.length-1]["name"]] = response;
+        texToLoad = formArrayToLoadSkyboxTextures("volcano", "png"); // level 4
         return loadTexturesFromArray(texToLoad, texToLoad.length-1);
       }).then(function(response) { // load for shaders from lv4
         texturesMap[texToLoad[texToLoad.length-1]["name"]] = response;

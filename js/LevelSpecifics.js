@@ -41,7 +41,7 @@
       }
       else if (level == 4) {
         console.log("You win.");
-        setupSkyBox("autumn", "png");
+        setupSkyBox("volcano", "png");
         lightColor = 0xffffff;
         lightIntensity = 300;
         lightDistanceFromPlayer = 35;

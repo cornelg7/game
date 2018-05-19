@@ -165,7 +165,7 @@
       {
         size: fontSize, height: 4, curveSegments: 3,
         font: textFont, style: "normal",
-        // bevelThickness: 1, bevelSize: 2, bevelEnabled: true,
+        bevelThickness: 1, bevelSize: 0.8, bevelEnabled: true,
         material: 0, extrudeMaterial: 1
       });
       var textMesh = new THREE.Mesh(textGeom, materialArray);
