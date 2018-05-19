@@ -148,5 +148,9 @@
         var font = loader.parse(loadedFonts["gentilis_bold.typeface"]);
         addTextOnScreen("You Win!", new THREE.Vector3(30, 47, 8), 10, font, customMaterial, customMaterial2, 4, 0.8, true);
         addTextOnScreen("c:", new THREE.Vector3(30, 24, -1), 10, font, customMaterial, customMaterial2, 4, 0.8, true);
+
+         // 17.
+         addTextOnScreen("17", new THREE.Vector3(-20, 24, 8), 5, font, customMaterial, customMaterial2, 1, 0.8, false);  
+         addTextOnScreen("<3", new THREE.Vector3(-20, 24, 2), 5, font, customMaterial, customMaterial2, 1, 0.8, false);
       }
     }
