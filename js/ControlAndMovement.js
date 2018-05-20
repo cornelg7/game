@@ -125,13 +125,11 @@
         extraHints = true;
       }
       if (controlsActive && keyMap[77]) { // M
-        if (sound.isPlaying) {
-          // sound.play();
-          sound.stop();
+        if (soundInitialized) {
+          if (sound.isPlaying) { sound.stop() } else { sound.play() }
         }
         else {
-          // sound.stop();
-          sound.play();
+          setupMusic();
         }
       }
       if (controlsActive && canRotate && keyMap[81]) { // Q

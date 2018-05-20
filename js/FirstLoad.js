@@ -189,12 +189,15 @@
     function setupCamera() {
       camera = new THREE.PerspectiveCamera( 70, window.innerWidth / window.innerHeight, 0.1, 1024 );
       camera.up = new THREE.Vector3(0,0,1);
+    }
 
+    function setupMusic() {
         // music
       var listener = new THREE.AudioListener();
       camera.add( listener );
 
       sound = new THREE.Audio( listener );
+      soundInitialized = true;
 
       var audioLoader = new THREE.AudioLoader();
       audioLoader.load('res/sounds/Perspectives.mp3', function(buffer) {
