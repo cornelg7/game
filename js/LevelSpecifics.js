@@ -17,6 +17,15 @@
           scene.add(showUpLight(levelNumberGroups[i], new THREE.Vector3(0, 0, -1), colours[i]));
           scene.add(showUpLight(levelNumberGroups[i], new THREE.Vector3(0, 0, 3), colours[i]))
         }
+        if (gameplayStage >= 4) {
+          scene.add(showUpLight({"position": new THREE.Vector3(64, 20, 3)}, new THREE.Vector3(0, 0, 0), 0xffffff));
+          scene.add(showUpLight({"position": new THREE.Vector3(64, 20, 3)}, new THREE.Vector3(0, 0, 0), 0xffffff));
+          scene.add(showUpLight({"position": new THREE.Vector3(64, 20, 3)}, new THREE.Vector3(0, 0, 0), 0xffffff));
+          scene.add(showUpLight({"position": new THREE.Vector3(64, 20, 3)}, new THREE.Vector3(0, 0, 0), 0xffffff));
+          scene.add(showUpLight({"position": new THREE.Vector3(64, 20, 3)}, new THREE.Vector3(0, 0, 0), 0xff0000));
+          scene.add(showUpLight({"position": new THREE.Vector3(64, 20, 3)}, new THREE.Vector3(0, 0, 0), 0x00ff00));
+          scene.add(showUpLight({"position": new THREE.Vector3(64, 20, 3)}, new THREE.Vector3(0, 0, 0), 0x0000ff));
+        }
       }
       else if (level == 1) {
         setupSkyBox("autumn", "png");
