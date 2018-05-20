@@ -194,7 +194,7 @@
       var listener = new THREE.AudioListener();
       camera.add( listener );
 
-      var sound = new THREE.Audio( listener );
+      sound = new THREE.Audio( listener );
 
       var audioLoader = new THREE.AudioLoader();
       audioLoader.load('res/sounds/Perspectives.mp3', function(buffer) {

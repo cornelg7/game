@@ -120,6 +120,20 @@
       //     playerToggleDress = true;
       //   }
       // }
+      if (controlsActive && keyMap[89]) { // Y
+        dificulty = "easy";
+        extraHints = true;
+      }
+      if (controlsActive && keyMap[77]) { // M
+        if (sound.isPlaying) {
+          // sound.play();
+          sound.stop();
+        }
+        else {
+          // sound.stop();
+          sound.play();
+        }
+      }
       if (controlsActive && canRotate && keyMap[81]) { // Q
         rotateCamera = (rotateCamera + cameraRotateSpeed)%(2*Math.PI);
         camera.position.x = player.position.x + 14 * Math.cos( rotateCamera - Math.PI);

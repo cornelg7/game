@@ -193,8 +193,10 @@
       var mat1 = getMaterialFromTextures("stone");
       var mat2 = getMaterialFromTextures("sand");
       toDispose.push(mat1); toDispose.push(mat2);
-      addTextOnScreen("wasd to move", new THREE.Vector3(8, 26, 5), 1.5, font, mat1, mat1, 0.3, 0.01, false);
-      addTextOnScreen("qe to rotate", new THREE.Vector3(8, 25, 3), 1.5, font, mat2, mat2, 0.3, 0.01, false);
+      addTextOnScreen("wasd to move", new THREE.Vector3(8, 26, 10.2), 1.5, font, mat1, mat1, 0.3, 0.01, false);
+      addTextOnScreen("qe to rotate", new THREE.Vector3(8, 25, 7.9), 1.5, font, mat2, mat2, 0.3, 0.01, false);
+      addTextOnScreen("y to easy mode", new THREE.Vector3(8, 26, 5.4), 1.5, font, mat2, mat2, 0.3, 0.01, false);
+      addTextOnScreen("m to mute", new THREE.Vector3(8, 24.3, 3), 1.5, font, mat2, mat2, 0.3, 0.01, false);
     }
 
     function simulateWinLevel(x) {
