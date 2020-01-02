@@ -1,4 +1,4 @@
-Try it at: cornelg7.github.io/game/
+Try it at: http://cornelg7.github.io/game/
 
 
 Backgrounds:
